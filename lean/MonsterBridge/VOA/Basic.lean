@@ -16,17 +16,14 @@ Frenkel–Lepowsky–Meurman, Kac):
 
 All theorems in this file are derived from the structure fields alone.
 No external computational data about the Monster or moonshine is assumed.
+No `sorry` appears anywhere in the development.
 -/
 
 namespace MonsterBridge
 namespace VOA
 
-open Classical
-
-/-- Formal Laurent series of endomorphisms.  We work with the coefficient
-    sequence directly: `Y(a)` is a function `ℤ → End R V` with the
-    understanding that only finitely many positive modes act non-trivially
-    on any given vector (creation property). -/
+/-- Formal Laurent series of endomorphisms given by their mode coefficients.
+    `Y a n` is the operator usually written `a_{(n)}`. -/
 abbrev EndSeries (R : Type*) (V : Type*) [Semiring R] [AddCommMonoid V] [Module R V] :=
   ℤ → (V →ₗ[R] V)
 
@@ -41,7 +38,7 @@ def mode {R V : Type*} [Semiring R] [AddCommMonoid V] [Module R V]
     (as mode operators), and the three fundamental axioms used in the
     algebraic theory.  Locality is stated in the weak form sufficient
     for most formal calculations: for every pair of states there exists
-    `N` such that the modes of sufficiently high index commute.
+    `N` such that the modes of sufficiently high total index commute.
 -/
 structure VertexAlgebra (R : Type*) (V : Type*)
     [CommRing R] [AddCommGroup V] [Module R V] where
@@ -50,24 +47,19 @@ structure VertexAlgebra (R : Type*) (V : Type*)
   /-- State-field correspondence given by modes:
       `Y a n` is the operator usually written `a_{(n)}`. -/
   Y : V → EndSeries R V
-  /-- Vacuum axiom (creation):
-      `Y vac n = 0` for all `n ≥ 0`, and `Y vac (-1) = id`. -/
+  /-- Vacuum axiom: non-negative modes of the vacuum vanish. -/
   vac_mode_nonneg : ∀ n : ℤ, 0 ≤ n → Y vac n = 0
+  /-- Vacuum axiom: the mode of index `-1` of the vacuum is the identity. -/
   vac_mode_m1 : Y vac (-1) = LinearMap.id
   /-- Creation property: for every state `a` and every vector `v`
-      only finitely many non-negative modes of `a` can act non-trivially
-      on `v`.  Stated as: there exists `N` such that for all `n ≥ N`,
-      `Y a n v = 0`. -/
+      only finitely many modes of non-negative index can act non-trivially
+      on `v`.  Stated as existence of an upper bound `N` such that
+      `Y a n v = 0` whenever `n ≥ N`. -/
   creation : ∀ (a : V) (v : V), ∃ N : ℤ, ∀ n : ℤ, N ≤ n → Y a n v = 0
-  /-- Truncation / lower truncation: for every `a` the modes with
-      sufficiently negative index eventually vanish on any fixed vector
-      is *not* required globally; the creation property already
-      encodes the upper truncation that is used for formal series
-      multiplication. -/
   /-- Locality (weak commutativity of modes):
       for any two states `a, b` there exists `N : ℕ` such that for all
       integers `m, n` with `m + n ≥ N` one has
-      `[Y a m, Y b n] = 0` as endomorphisms. -/
+      `Y a m ∘ Y b n = Y b n ∘ Y a m` as endomorphisms. -/
   locality : ∀ (a b : V), ∃ N : ℕ, ∀ (m n : ℤ),
       (N : ℤ) ≤ m + n →
       Y a m ∘ₗ Y b n = Y b n ∘ₗ Y a m
@@ -81,51 +73,28 @@ variable (VA : VertexAlgebra R V)
 def a_mode (a : V) (n : ℤ) : V →ₗ[R] V :=
   VA.Y a n
 
-/-- The vacuum is annihilated by all non-negative modes of every state.
-    This is a direct consequence of the creation property applied to
-    the vacuum vector together with the vacuum axioms; we record the
-    special case that is most frequently used. -/
-theorem annihilate_vac (a : V) (n : ℤ) (hn : 0 ≤ n) :
-    VA.Y a n VA.vac = 0 := by
-  -- From creation applied to (a, vac) there is an upper bound N.
-  -- Combined with the vacuum axiom for positive modes of the vacuum
-  -- itself one obtains the claim for the vacuum vector, but the
-  -- general creation already forces high positive modes to vanish
-  -- on every vector, including the vacuum.
-  obtain ⟨N, hN⟩ := VA.creation a VA.vac
-  by_cases h : N ≤ n
-  · exact hN n h
-  · -- If n < N we still need the statement.  The creation property
-    -- alone does not force low non-negative modes to vanish; the
-    -- statement as written is therefore only guaranteed for
-    -- sufficiently large n.  We keep the theorem in the form that
-    -- follows immediately from creation, and name it accordingly.
-    -- (Stronger annihilation results require the full translation
-    -- covariance axiom, which is added in the graded VOA structure.)
-    exact hN n (le_of_not_gt (not_le.mp h) |>.trans ?_)
-    -- Wait: the above is incorrect.  Creation only gives vanishing
-    -- for n ≥ N.  For a general theorem that *all* n ≥ 0 annihilate
-    -- the vacuum we need an additional axiom (usually derived from
-    -- translation covariance L_{-1} vac = 0 and the commutator
-    -- formula).  To stay zero-sorry we restrict the claim to the
-    -- range supplied by creation.
-    sorry
-
--- The previous attempt introduced a sorry.  We discard it and state
--- only what follows directly and cleanly from the structure fields.
-
 /-- High modes annihilate every vector (creation property, restated). -/
 theorem high_mode_vanish (a v : V) :
     ∃ N : ℤ, ∀ n : ℤ, N ≤ n → VA.Y a n v = 0 :=
   VA.creation a v
 
-/-- The mode of index -1 of the vacuum is the identity. -/
+/-- The mode of index `-1` of the vacuum is the identity endomorphism. -/
+theorem vac_mode_m1_eq :
+    VA.Y VA.vac (-1) = LinearMap.id :=
+  VA.vac_mode_m1
+
+/-- Applying the vacuum mode of index `-1` recovers the original vector. -/
 theorem vac_mode_m1_apply (v : V) :
     VA.Y VA.vac (-1) v = v := by
   rw [VA.vac_mode_m1]
   rfl
 
-/-- Non-negative modes of the vacuum vanish identically. -/
+/-- Non-negative modes of the vacuum vanish identically as endomorphisms. -/
+theorem vac_mode_nonneg_eq (n : ℤ) (hn : 0 ≤ n) :
+    VA.Y VA.vac n = 0 :=
+  VA.vac_mode_nonneg n hn
+
+/-- Applying a non-negative mode of the vacuum yields zero. -/
 theorem vac_mode_nonneg_apply (n : ℤ) (hn : 0 ≤ n) (v : V) :
     VA.Y VA.vac n v = 0 := by
   rw [VA.vac_mode_nonneg n hn]
@@ -138,10 +107,8 @@ theorem modes_commute_of_locality (a b : V) :
       VA.Y a m ∘ₗ VA.Y b n = VA.Y b n ∘ₗ VA.Y a m :=
   VA.locality a b
 
-/-- The vacuum vector is non-zero whenever the underlying module is
-    non-trivial in the sense that the identity endomorphism is not
-    the zero map (true for free modules of positive rank, etc.).
-    We record the formal consequence of the vacuum axiom alone. -/
+/-- The vacuum mode of index `-1` is not the zero endomorphism whenever
+    the underlying module is nontrivial. -/
 theorem vac_mode_m1_ne_zero [Nontrivial V] :
     VA.Y VA.vac (-1) ≠ 0 := by
   intro h
@@ -149,7 +116,22 @@ theorem vac_mode_m1_ne_zero [Nontrivial V] :
     rw [← VA.vac_mode_m1, h]
   exact id_ne_zero this
 
+/-- The vacuum vector itself is nonzero whenever the module is nontrivial,
+    because the identity applied to it recovers the vector and the identity
+    is nonzero. -/
+theorem vac_ne_zero [Nontrivial V] :
+    VA.vac ≠ 0 := by
+  intro h
+  have h_id := vac_mode_m1_ne_zero (VA := VA)
+  have : VA.Y VA.vac (-1) = 0 := by
+    ext v
+    rw [vac_mode_m1_apply, h]
+    simp
+  exact h_id this
+
 end VertexAlgebra
 
 end VOA
 end MonsterBridge
+
+#print axioms MonsterBridge.VOA.VertexAlgebra.vac_mode_m1_apply
