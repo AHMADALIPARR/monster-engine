@@ -1,0 +1,4 @@
+Published fact (established published values): the J-function has the q-expansion j(τ) = 1/q + 744 + 196884q + 21493760q² + 864299970q³ + …
+Published fact (established published values): McKay's observation is the numerical identity 196884 = 196883 + 1, relating the J-function coefficient 196884 to 196883, the dimension of the smallest nontrivial Monster representation, plus 1, the trivial representation dimension.
+Published fact (established published values): the order of the Monster group is 808017424794512875886459904961710757005754368000000000, approximately 8×10^53.
+Published fact (established published values): a McKay-Thompson series is a series associated to an individual element of the Monster group, and in monstrous moonshine these series are hauptmoduls.
