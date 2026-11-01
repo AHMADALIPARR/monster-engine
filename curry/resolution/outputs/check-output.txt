@@ -1,0 +1,10 @@
+ALL: expected 28, curry 28, AGREE
+BLOCKED: expected 8, curry 8, AGREE
+RESOLVABLE: expected 20, curry 20, AGREE
+TRANS MON-homomorphism: expected 2, curry 2, AGREE
+TRANS MON-character-compat: expected 4, curry 4, AGREE
+DERIVATION-NODES MON-character-compat: expected 5, curry 5, AGREE
+DERIVATION-CLAUSES MON-character-compat: all nodes cite derivation-base/derivation-step, AGREE
+MOONCHAIN TRANS GradedDim: expected 3, curry 3, AGREE
+BOUNDED CYCLIC: line present in Curry output, AGREE
+check: ALL COMPARISONS AGREE

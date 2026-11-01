@@ -1,0 +1,10 @@
+interface MoonshineChain where {
+import Prelude;
+moonClaim 1 :: [Prelude.Char] -> Prelude.Bool;
+moonDependsOn
+2
+::
+[Prelude.Char] -> [Prelude.Char] -> Prelude.Bool;
+hiding data Prelude.Char;
+hiding data Prelude.Bool
+}

@@ -1,0 +1,1 @@
+Prog "FactsCyclic" ["Prelude"] [] [Func ("FactsCyclic","cycDependsOn") 2 Public (FuncType (TCons ("Prelude","[]") [TCons ("Prelude","Char") []]) (FuncType (TCons ("Prelude","[]") [TCons ("Prelude","Char") []]) (TCons ("Prelude","Bool") []))) (Rule [] (Var 0))] []

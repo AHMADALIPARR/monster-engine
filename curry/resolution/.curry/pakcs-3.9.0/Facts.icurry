@@ -1,0 +1,10 @@
+interface Facts where {
+import Prelude;
+dependsOn 2 :: [Prelude.Char] -> [Prelude.Char] -> Prelude.Bool;
+item
+3
+::
+[Prelude.Char] -> [Prelude.Char] -> [Prelude.Char] -> Prelude.Bool;
+hiding data Prelude.Char;
+hiding data Prelude.Bool
+}

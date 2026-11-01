@@ -1,0 +1,10 @@
+{- AbstractCurry 3.0 -}
+CurryProg "MoonshineChain"
+[]
+Nothing
+ []
+ []
+ []
+ [CFunc ("MoonshineChain","moonClaim") 1 Public (CQualType (CContext []) (CFuncType (CTApply (CTCons ("Prelude","[]")) (CTCons ("Prelude","Char"))) (CTCons ("Prelude","Bool")))) [CRule [CPLit (CStringc "JCoeff1")] (CSimpleRhs (CSymbol ("Prelude","True")) []),CRule [CPLit (CStringc "JCoeff2")] (CSimpleRhs (CSymbol ("Prelude","True")) []),CRule [CPLit (CStringc "McKayDecomp")] (CSimpleRhs (CSymbol ("Prelude","True")) []),CRule [CPLit (CStringc "GradedDim")] (CSimpleRhs (CSymbol ("Prelude","True")) [])],
+  CFunc ("MoonshineChain","moonDependsOn") 2 Public (CQualType (CContext []) (CFuncType (CTApply (CTCons ("Prelude","[]")) (CTCons ("Prelude","Char"))) (CFuncType (CTApply (CTCons ("Prelude","[]")) (CTCons ("Prelude","Char"))) (CTCons ("Prelude","Bool"))))) [CRule [CPLit (CStringc "JCoeff2"),CPLit (CStringc "JCoeff1")] (CSimpleRhs (CSymbol ("Prelude","True")) []),CRule [CPLit (CStringc "McKayDecomp"),CPLit (CStringc "JCoeff2")] (CSimpleRhs (CSymbol ("Prelude","True")) []),CRule [CPLit (CStringc "GradedDim"),CPLit (CStringc "McKayDecomp")] (CSimpleRhs (CSymbol ("Prelude","True")) [])]]
+ []

@@ -1,0 +1,6 @@
+interface FactsCyclic where {
+import Prelude;
+cycDependsOn 2 :: [Prelude.Char] -> [Prelude.Char] -> Prelude.Bool;
+hiding data Prelude.Char;
+hiding data Prelude.Bool
+}

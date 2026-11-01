@@ -1,0 +1,80 @@
+ __    _
+|_ \  | |            PAKCS - the Portland Aachen Kiel Curry System
+  \ \ | |____
+  /  \|  ____|       Version 3.9.0 of 2025-10-29 (swi 9.0)
+ / /\ \ |
+/_/  \_\|            
+
+Type ":h" for help (contact: pakcs@curry-lang.org)
+Compiling Curry program "Resolve"...
+
+Facts.curry:10:1-37:57 Warning:
+    Pattern matches are non-exhaustive
+    In an equation for `item':
+      Patterns not matched:
+        [] _ _
+        (x : _) _ _ with x `notElem` ['M', 'L', 'G']
+        ['M'] _ _
+        ('M' : x : _) _ _ with x `notElem` ['O']
+        ...
+    | 
+ 10 | item "MON-identity" "MON" "finite-check" = True
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^...
+
+Facts.curry:40:1-61:59 Warning:
+    Pattern matches are non-exhaustive
+    In an equation for `dependsOn':
+      Patterns not matched:
+        [] _
+        (x : _) _ with x `notElem` ['M', 'L', 'G']
+        ['M'] _
+        ('M' : x : _) _ with x `notElem` ['O']
+        ...
+    | 
+ 40 | dependsOn "MON-associativity" "MON-closure" = True
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^...
+
+Resolve.curry:90:1-92:14 Warning:
+    Function `dependsTrans' is potentially non-deterministic due to overlapping rules
+    | 
+ 90 | dependsTrans x y | dependsOn x y = True
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^...
+
+Resolve.curry:112:1-114:14 Warning:
+    Function `blocked' is potentially non-deterministic due to overlapping rules
+     | 
+ 112 | blocked x | abstractOnly x = True
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^...
+
+Resolve.curry:178:1-180:14 Warning:
+    Function `moonTrans' is potentially non-deterministic due to overlapping rules
+     | 
+ 178 | moonTrans x y | moonDependsOn x y = True
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^...
+
+Resolve.curry:195:1-197:14 Warning:
+    Function `cycTransN' is potentially non-deterministic due to overlapping rules
+     | 
+ 195 | cycTransN _ x y | cycDependsOn x y = True
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^...
+ALL: ["GEO-forward-inverse","GEO-holographic-scope","GEO-rank-preservation","GEO-reconstruction","GEO-subdivision","GEO-tensor-shape","LIE-action-composition","LIE-antisymmetry","LIE-coordinate-compat","LIE-equivariance","LIE-jacobi","LIE-structure-constants","LIE-tangent-space","MON-associativity","MON-character-compat","MON-closure","MON-conjugacy","MON-homomorphism","MON-identity","MON-inverses","MON-monster-abstract","MON-nonhomomorphism","MOON-character-decomposition","MOON-j-coeffs","MOON-mckay-identity","MOON-mckay-thompson","MOON-modular-transform","MOON-partition-constraints"]
+BLOCKED: ["GEO-holographic-scope","LIE-coordinate-compat","LIE-equivariance","LIE-tangent-space","MON-monster-abstract","MOON-mckay-thompson","MOON-modular-transform","MOON-partition-constraints"]
+RESOLVABLE: ["GEO-forward-inverse","GEO-rank-preservation","GEO-reconstruction","GEO-subdivision","GEO-tensor-shape","LIE-action-composition","LIE-antisymmetry","LIE-jacobi","LIE-structure-constants","MON-associativity","MON-character-compat","MON-closure","MON-conjugacy","MON-homomorphism","MON-identity","MON-inverses","MON-nonhomomorphism","MOON-character-decomposition","MOON-j-coeffs","MOON-mckay-identity"]
+TRANS MON-homomorphism: ["MON-closure","MON-identity"]
+TRANS MON-character-compat: ["MON-closure","MON-conjugacy","MON-identity","MON-inverses"]
+BEGIN-DERIVATION MON-character-compat
+NODE item=MON-character-compat clause=derivation-step subst="X := MON-character-compat" premise="kind=data-check (item fact)"
+  NODE item=MON-conjugacy clause=derivation-step subst="X := MON-conjugacy" premise="kind=finite-check (item fact)"
+    NODE item=MON-closure clause=derivation-base subst="X := MON-closure" premise="kind=finite-check (item fact)"
+    NODE item=MON-inverses clause=derivation-step subst="X := MON-inverses" premise="kind=finite-check (item fact)"
+      NODE item=MON-identity clause=derivation-base subst="X := MON-identity" premise="kind=finite-check (item fact)"
+END-DERIVATION MON-character-compat
+BEGIN-DERIVATION GEO-reconstruction
+NODE item=GEO-reconstruction clause=derivation-step subst="X := GEO-reconstruction" premise="kind=finite-check (item fact)"
+  NODE item=GEO-subdivision clause=derivation-base subst="X := GEO-subdivision" premise="kind=finite-check (item fact)"
+  NODE item=GEO-forward-inverse clause=derivation-step subst="X := GEO-forward-inverse" premise="kind=finite-check (item fact)"
+    NODE item=GEO-tensor-shape clause=derivation-base subst="X := GEO-tensor-shape" premise="kind=finite-check (item fact)"
+END-DERIVATION GEO-reconstruction
+MOONCHAIN TRANS GradedDim: ["JCoeff1","JCoeff2","McKayDecomp"]
+BOUNDED CYCLIC: cycTransN 5 from "a": ["b","a","b","a","b","a"]
+BOUNDED CYCLIC NOTE: fuel-bounded closure over the cyclic facts a<->b terminated; the unbounded closure over the same facts does not terminate.

@@ -1,0 +1,9 @@
+{- AbstractCurry 3.0 -}
+CurryProg "FactsCyclic"
+[]
+Nothing
+ []
+ []
+ []
+ [CFunc ("FactsCyclic","cycDependsOn") 2 Public (CQualType (CContext []) (CFuncType (CTApply (CTCons ("Prelude","[]")) (CTCons ("Prelude","Char"))) (CFuncType (CTApply (CTCons ("Prelude","[]")) (CTCons ("Prelude","Char"))) (CTCons ("Prelude","Bool"))))) [CRule [CPLit (CStringc "a"),CPLit (CStringc "b")] (CSimpleRhs (CSymbol ("Prelude","True")) []),CRule [CPLit (CStringc "b"),CPLit (CStringc "a")] (CSimpleRhs (CSymbol ("Prelude","True")) [])]]
+ []
