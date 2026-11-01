@@ -7,7 +7,7 @@
 [![Zero Sorry](https://img.shields.io/badge/proofs-zero%20sorry-brightgreen.svg)](lean/MonsterBridge/VOA/)
 [![License](https://img.shields.io/badge/license-see%20LICENSE-lightgrey.svg)](LICENSE)
 
-**Topics:** `vertex-operator-algebra` `monstrous-moonshine` `monster-group` `lean4` `formal-verification` `mathlib` `voa` `conformal-field-theory` `sporadic-groups` `modular-forms`
+**Topics:** `vertex-operator-algebra` `monstrous-moonshine` `monster-group` `lean4` `formal-verification` `mathlib` `voa` `conformal-field-theory` `sporadic-groups` `modular-forms` `genus-zero` `non-congruence-subgroups`
 
 **MONSTER-BRIDGE.** A deterministic, XML-first research engine that connects
 symbolic mathematics (Mathics3 / Wolfram Language), logic programming
@@ -45,6 +45,7 @@ shipped as a production Lean 4 library under `lean/MonsterBridge/VOA/`.
 | [`VOA/Basic.lean`](lean/MonsterBridge/VOA/Basic.lean) | `VertexAlgebra` — vacuum, mode operators `Y`, creation property, locality |
 | [`VOA/Conformal.lean`](lean/MonsterBridge/VOA/Conformal.lean) | `VertexOperatorAlgebra` — conformal vector ω, Virasoro relations, central charge, weight-zero vacuum |
 | [`VOA/Modules.lean`](lean/MonsterBridge/VOA/Modules.lean) | Modules for both vertex algebras and VOAs, compatible Virasoro action |
+| [`VOA/MoonshineGroups.lean`](lean/MonsterBridge/VOA/MoonshineGroups.lean) | The 171 genus-zero moonshine groups in Conway–Norton notation |
 
 **Guarantees**
 
@@ -58,6 +59,34 @@ This supplies the algebraic substrate needed for future formal work on
 graded dimensions, McKay–Thompson series, and the structural side of
 monstrous moonshine, while the Monster group itself remains correctly
 recorded as `UNSUPPORTED` (order ≈ 8.08 × 10⁵³).
+
+### The 171 Genus-Zero Moonshine Groups
+
+Monstrous Moonshine associates to each conjugacy class of the Monster a **genus-zero** subgroup of `PSL₂(ℝ)` (more precisely, of a group commensurable with `PSL₂(ℤ)`). There are exactly **171** distinct such groups.
+
+They are written in **Conway–Norton notation**
+
+```
+n | h + e, f, …
+```
+
+where `n` is the order of a Monster element, `h` divides both 24 and `n`, and the symbols after the `+` are Atkin–Lehner involutions.
+
+**Key structural fact:** these groups are in general **non-congruence** subgroups of `PSL₂(ℝ)`. They are characterised by four properties (Conway–McKay–Sebbar, *Proc. AMS* 2004):
+
+1. genus zero,
+2. of the form `Γ₀(n||h) + e,f,…`,
+3. the quotient by `Γ₀(nh)` has exponent 2,
+4. every cusp can be mapped to `∞` by an element of `PSL₂(ℝ)` that conjugates the group to one containing `Γ₀(nh)`.
+
+In classical modular arithmetic one studies congruence subgroups (`Γ₀(N)`, `Γ(N)`, …). The moonshine groups lie outside that theory; that distinction is now recorded explicitly in the formal library.
+
+| Location | Content |
+|----------|---------|
+| [`lean/MonsterBridge/VOA/MoonshineGroups.lean`](lean/MonsterBridge/VOA/MoonshineGroups.lean) | `MoonshineGroup` structure, Conway–Norton pretty-printer, working list, classical count 171, non-congruence statement |
+| [`wolfram/MoonshineGroups.wl`](wolfram/MoonshineGroups.wl) | Same data as a Wolfram Language package (`MonsterBridge\`MoonshineGroups\``) |
+
+The complete classical enumeration is the published Conway–Norton Table 2 (1979). The repository supplies the formal data type and a substantial machine-checkable working subset; the Monster itself is never enumerated.
 
 ---
 
