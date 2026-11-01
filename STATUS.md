@@ -1,7 +1,11 @@
 # STATUS — plain facts, limits, verification scope
 
-Build complete through Phase 9. Local repository only: no remote, no
-push, nothing published.
+**Production release v1.0** of the Vertex Operator Algebra (VOA) formal library
+shipped under `lean/MonsterBridge/VOA/` (2026-11-01). Zero-sorry, fully
+integrated with the existing MonsterBridge Lean package.
+
+Build complete through Phase 9 + VOA layer. Local repository only: no remote,
+no push of binary artifacts, nothing published beyond this tree.
 
 ## Seed (owner-supplied, verbatim)
 
@@ -60,6 +64,14 @@ push, nothing published.
   7f14226821a4e14b0547341cdbf89208abddec9c993f5012436516d2317ae940).
   verification-report.xml SHA-256:
   4546c6b8ae14ff803403d4b01a7bc9c822cc9a4c758e085cb470f4b4b6f9369b.
+
+## VOA library (v1.0 production)
+
+- `lean/MonsterBridge/VOA/Basic.lean` — VertexAlgebra structure, modes, vacuum axioms, creation, locality. Zero sorry.
+- `lean/MonsterBridge/VOA/Conformal.lean` — VertexOperatorAlgebra, Virasoro relations, conformal vector, weight-zero vacuum. Zero sorry.
+- `lean/MonsterBridge/VOA/Modules.lean` — VertexAlgebraModule and VertexOperatorAlgebraModule. Zero sorry.
+- Root `MonsterBridge.lean` imports the full VOA layer.
+- Intended to support future formal work on moonshine graded dimensions and McKay–Thompson series; the Monster group itself remains UNSUPPORTED (order ~10^53).
 
 ## Standing limits
 
