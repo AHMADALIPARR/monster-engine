@@ -1,15 +1,21 @@
 # Assets
 
-Place the Monster Moonshine centerfold image here as:
+## Monster Moonshine Centerfold
+
+The main README expects this file:
 
 ```
 assets/monster-moonshine-centerfold.jpg
 ```
 
-The main README embeds it with:
+**To fix the broken image link:**
 
-```html
-<img src="assets/monster-moonshine-centerfold.jpg" alt="Monster Moonshine centerfold" width="820"/>
-```
+1. Go to the repository on GitHub
+2. Navigate into the `assets/` folder
+3. Click **Add file → Upload files**
+4. Drop the centerfold JPEG (the vintage Monster + Moon poster)
+5. Commit the change
 
-The image is the vintage-style poster featuring the Monster, the modular J-function, the SL₂(ℤ) action, a polyhedral graph, a torus, and the full order of the Monster group.
+Once the file is present the image will render automatically in the README.
+
+The image shows the Monster holding a jar under a full moon, with the modular J-function, the SL₂(ℤ) fractional-linear action, a polyhedral graph, a torus, the metric and Lie bracket, and the full order of the Monster group.
