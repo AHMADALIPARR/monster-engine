@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Rejection class: malformed XML. The claim element is never closed,
+     so the document is not well-formed and parsing itself must fail. -->
+<research version="2">
+  <operator-registry>
+    <operator name="equals" arity="2" result="proposition"/>
+  </operator-registry>
+  <source id="s1" path="Conway, J. H.; Norton, S. P. (1979). Monstrous Moonshine. Bulletin of the London Mathematical Society 11(3): 308-339." sha256="f8b96ee10bf5a99c286167d0cccb3b9849a2c3c23ced62ee78518a6da856c6dd">
+    <title>Monstrous Moonshine</title>
+    <author>John H. Conway</author>
+    <publication-date>1979</publication-date>
+    <provenance>Published article; sha256 is the SHA-256 of the path locator string, as in the valid example.</provenance>
+  </source>
+  <claim id="c1" source="s1" domain="moonshine" status="candidate">
+    <original-expression>1 = 1</original-expression>
+    <normalized-expression>
+      <apply operator="equals">
+        <number value="1"/>
+        <number value="1"/>
+      </apply>
+    </normalized-expression>
+    <assumptions>
+      <assumption>Integer identity.</assumption>
+    </assumptions>
+</research>

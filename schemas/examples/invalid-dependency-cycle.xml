@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Rejection class: dependency cycle. Claim c1 depends on c2 and claim
+     c2 depends on c1. Both references resolve; the graph is cyclic, which
+     v2 rejects (v1 did not check acyclicity). Everything else in this
+     document is valid. -->
+<research version="2">
+  <operator-registry>
+    <operator name="equals" arity="2" result="proposition"/>
+  </operator-registry>
+  <source id="s1" path="Conway, J. H.; Norton, S. P. (1979). Monstrous Moonshine. Bulletin of the London Mathematical Society 11(3): 308-339." sha256="f8b96ee10bf5a99c286167d0cccb3b9849a2c3c23ced62ee78518a6da856c6dd">
+    <title>Monstrous Moonshine</title>
+    <author>John H. Conway</author>
+    <publication-date>1979</publication-date>
+    <provenance>Published article; sha256 is the SHA-256 of the path locator string, as in the valid example.</provenance>
+  </source>
+  <claim id="c1" source="s1" domain="general" status="candidate">
+    <original-expression>1 = 1</original-expression>
+    <normalized-expression>
+      <apply operator="equals">
+        <number value="1"/>
+        <number value="1"/>
+      </apply>
+    </normalized-expression>
+    <operator-signatures>
+      <signature operator="equals" arity="2" argument-types="integer, integer" result-type="proposition"/>
+    </operator-signatures>
+    <assumptions>
+      <assumption>Integer identity.</assumption>
+    </assumptions>
+    <dependencies>
+      <dependency ref="c2" relation="depends-on"/>
+    </dependencies>
+  </claim>
+  <claim id="c2" source="s1" domain="general" status="candidate">
+    <original-expression>2 = 2</original-expression>
+    <normalized-expression>
+      <apply operator="equals">
+        <number value="2"/>
+        <number value="2"/>
+      </apply>
+    </normalized-expression>
+    <operator-signatures>
+      <signature operator="equals" arity="2" argument-types="integer, integer" result-type="proposition"/>
+    </operator-signatures>
+    <assumptions>
+      <assumption>Integer identity.</assumption>
+    </assumptions>
+    <dependencies>
+      <dependency ref="c1" relation="depends-on"/>
+    </dependencies>
+  </claim>
+</research>

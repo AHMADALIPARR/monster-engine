@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Rejection class: unsubstantiated verified status. Claim c1 is marked
+     verified, but its only evidence is a bounded numerical check. There is
+     no formal-proof evidence (tool in lean/coq/agda/isabelle, status
+     verified, 64-hex artifact hash) and no verified formal proof
+     reference, so the v1 honesty rule carried into v2 must reject it.
+     Everything else in this document is valid. -->
+<research version="2">
+  <operator-registry>
+    <operator name="add" arity="2" result="number"/>
+    <operator name="equals" arity="2" result="proposition"/>
+  </operator-registry>
+  <source id="s1" path="McKay, J. (1980). Graphs, singularities, and finite groups. Proceedings of Symposia in Pure Mathematics 37: 183-186." sha256="e16aab3a1848c4e5e3e06e151d9ae72f4f2c8434f575d038740fbf2e4c3ae118">
+    <title>Graphs, singularities, and finite groups</title>
+    <author>John McKay</author>
+    <publication-date>1980</publication-date>
+    <provenance>Published article; sha256 is the SHA-256 of the path locator string, as in the valid example.</provenance>
+  </source>
+  <claim id="c1" source="s1" domain="monster" status="verified">
+    <original-expression>196884 = 196883 + 1 (McKay's observation).</original-expression>
+    <normalized-expression>
+      <apply operator="equals">
+        <number value="196884"/>
+        <apply operator="add">
+          <number value="196883"/>
+          <number value="1"/>
+        </apply>
+      </apply>
+    </normalized-expression>
+    <operator-signatures>
+      <signature operator="equals" arity="2" argument-types="integer, integer" result-type="proposition"/>
+      <signature operator="add" arity="2" argument-types="integer, integer" result-type="integer"/>
+    </operator-signatures>
+    <assumptions>
+      <assumption>Integer arithmetic.</assumption>
+    </assumptions>
+    <evidence tool="python" status="bounded" kind="numerical" artifact_sha256="e16aab3a1848c4e5e3e06e151d9ae72f4f2c8434f575d038740fbf2e4c3ae118">
+      <details>A bounded numerical evaluation agrees with the identity. A numerical check is not a formal proof, so this evidence cannot substantiate a verified status.</details>
+    </evidence>
+    <verification-report status="UNPROVEN" tool="monster-bridge-validator">
+      <details>No formal proof has been produced by this engine for this claim.</details>
+    </verification-report>
+  </claim>
+</research>

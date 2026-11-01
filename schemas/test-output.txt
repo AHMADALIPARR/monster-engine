@@ -1,0 +1,8 @@
+PASS: contract-v2.xsd is well-formed XML (ElementTree; xmllint not installed)
+PASS: valid-moonshine.xml validates
+PASS: invalid-malformed.xml rejected with expected error class 'malformed XML'
+PASS: invalid-unsupported-operator.xml rejected with expected error class 'unsupported operator'
+PASS: invalid-unresolved-dependency.xml rejected with expected error class 'unresolved dependency'
+PASS: invalid-dependency-cycle.xml rejected with expected error class 'dependency cycle'
+PASS: invalid-unsubstantiated-verified.xml rejected with expected error class 'unsubstantiated verified'
+Tally: 7/7

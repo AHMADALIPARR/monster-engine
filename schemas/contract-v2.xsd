@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Monster-Bridge contract schema, version 2.
+
+  Extends the owner's v1 schema (monster_bridge/schema/contract.xsd, untouched)
+  with the directive section 4 fields: source author / publication date /
+  provenance, original AND normalized expressions per claim, operator
+  signatures checked against a global operator registry, variable scopes,
+  candidate invariants, dependency edges, counterexample evidence, formal
+  proof references, numerical residuals, toolchain versions, and
+  cryptographic source hashes.
+
+  Honesty structure carried over from v1: evidence entries carry
+  tool / status / artifact_sha256, claim status is one of
+  candidate / rejected / bounded / verified, and a verified claim is only
+  meaningful with formal-proof evidence (enforced semantically by
+  validate_v2.py, mirroring the v1 validate() rule).
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+
+  <!-- ======================= simple types ======================= -->
+
+  <xs:simpleType name="Sha256Type">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9a-f]{64}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ClaimStatusType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="candidate"/>
+      <xs:enumeration value="rejected"/>
+      <xs:enumeration value="bounded"/>
+      <xs:enumeration value="verified"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Directive section 13 verification-report statuses. -->
+  <xs:simpleType name="ReportStatusType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="VERIFIED"/>
+      <xs:enumeration value="COUNTEREXAMPLE"/>
+      <xs:enumeration value="UNPROVEN"/>
+      <xs:enumeration value="UNSUPPORTED"/>
+      <xs:enumeration value="EXECUTION_FAILED"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="EvidenceStatusType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="candidate"/>
+      <xs:enumeration value="rejected"/>
+      <xs:enumeration value="bounded"/>
+      <xs:enumeration value="verified"/>
+      <xs:enumeration value="counterexample"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="EvidenceKindType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="formal-proof"/>
+      <xs:enumeration value="counterexample"/>
+      <xs:enumeration value="numerical"/>
+      <xs:enumeration value="computational"/>
+      <xs:enumeration value="source-check"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="DomainType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="moonshine"/>
+      <xs:enumeration value="monster"/>
+      <xs:enumeration value="lie"/>
+      <xs:enumeration value="geo"/>
+      <xs:enumeration value="modular-forms"/>
+      <xs:enumeration value="general"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- The global operator registry: the only operator names a normalized
+       expression may use. Each name has one fixed arity, recorded in the
+       document's operator-registry element and enforced by validate_v2.py.
+       equals / not-equals / comparisons return a proposition; coefficient
+       takes (series, exponent) and returns the coefficient of q^exponent
+       in the q-expansion of series. -->
+  <xs:simpleType name="OperatorNameType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="add"/>
+      <xs:enumeration value="subtract"/>
+      <xs:enumeration value="multiply"/>
+      <xs:enumeration value="divide"/>
+      <xs:enumeration value="power"/>
+      <xs:enumeration value="negate"/>
+      <xs:enumeration value="equals"/>
+      <xs:enumeration value="not-equals"/>
+      <xs:enumeration value="less-than"/>
+      <xs:enumeration value="less-or-equal"/>
+      <xs:enumeration value="greater-than"/>
+      <xs:enumeration value="greater-or-equal"/>
+      <xs:enumeration value="coefficient"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ProofToolType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="lean"/>
+      <xs:enumeration value="coq"/>
+      <xs:enumeration value="agda"/>
+      <xs:enumeration value="isabelle"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PublicationDateType">
+    <xs:union memberTypes="xs:date xs:gYear"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="NumericLiteralType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="-?[0-9]+(\.[0-9]+)?"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="BinderKindType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="sum"/>
+      <xs:enumeration value="product"/>
+      <xs:enumeration value="forall"/>
+      <xs:enumeration value="exists"/>
+      <xs:enumeration value="lambda"/>
+      <xs:enumeration value="limit"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="VariableKindType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="variable"/>
+      <xs:enumeration value="function"/>
+      <xs:enumeration value="parameter"/>
+      <xs:enumeration value="constant"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="BindingType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="free"/>
+      <xs:enumeration value="bound"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="DependencyRelationType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="depends-on"/>
+      <xs:enumeration value="uses"/>
+      <xs:enumeration value="supports"/>
+      <xs:enumeration value="refutes"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="HashAlgorithmType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="sha256"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="HashRoleType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="source"/>
+      <xs:enumeration value="original-expression"/>
+      <xs:enumeration value="normalized-expression"/>
+      <xs:enumeration value="proof-artifact"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- ======================= AST node types ======================= -->
+
+  <xs:group name="MathNodeGroup">
+    <xs:choice>
+      <xs:element name="number" type="NumberType"/>
+      <xs:element name="symbol" type="SymbolType"/>
+      <xs:element name="apply" type="ApplyType"/>
+      <xs:element name="call" type="CallType"/>
+      <xs:element name="binder" type="BinderType"/>
+    </xs:choice>
+  </xs:group>
+
+  <xs:complexType name="NumberType">
+    <xs:attribute name="value" type="NumericLiteralType" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="SymbolType">
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="scope" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="ApplyType">
+    <xs:sequence>
+      <xs:group ref="MathNodeGroup" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="operator" type="OperatorNameType" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="CallType">
+    <xs:sequence>
+      <xs:group ref="MathNodeGroup" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="function" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="NodeWrapperType">
+    <xs:sequence>
+      <xs:group ref="MathNodeGroup"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="BinderType">
+    <xs:sequence>
+      <xs:element name="lower" type="NodeWrapperType" minOccurs="0"/>
+      <xs:element name="upper" type="NodeWrapperType" minOccurs="0"/>
+      <xs:element name="body" type="NodeWrapperType"/>
+    </xs:sequence>
+    <xs:attribute name="kind" type="BinderKindType" use="required"/>
+    <xs:attribute name="variable" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <!-- ======================= component types ======================= -->
+
+  <xs:complexType name="RegistryOperatorType">
+    <xs:attribute name="name" type="OperatorNameType" use="required"/>
+    <xs:attribute name="arity" type="xs:positiveInteger" use="required"/>
+    <xs:attribute name="result" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="SourceType">
+    <xs:sequence>
+      <xs:element name="title" type="xs:string"/>
+      <xs:element name="author" type="xs:string" maxOccurs="unbounded"/>
+      <xs:element name="publication-date" type="PublicationDateType"/>
+      <xs:element name="provenance" type="xs:string"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:ID" use="required"/>
+    <xs:attribute name="path" type="xs:string" use="required"/>
+    <xs:attribute name="sha256" type="Sha256Type" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="SignatureType">
+    <xs:attribute name="operator" type="OperatorNameType" use="required"/>
+    <xs:attribute name="arity" type="xs:positiveInteger" use="required"/>
+    <xs:attribute name="argument-types" type="xs:string" use="optional"/>
+    <xs:attribute name="result-type" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="VariableType">
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="kind" type="VariableKindType" use="required"/>
+    <xs:attribute name="binding" type="BindingType" use="required"/>
+    <xs:attribute name="scope" type="xs:string" use="required"/>
+    <xs:attribute name="type" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="InvariantType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="id" type="xs:string" use="optional"/>
+        <xs:attribute name="status" type="ClaimStatusType" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="DependencyType">
+    <xs:attribute name="ref" type="xs:string" use="required"/>
+    <xs:attribute name="relation" type="DependencyRelationType" use="required"/>
+  </xs:complexType>
+
+  <!-- v1 evidence shape: tool / status / artifact_sha256 attributes and a
+       details child; v2 adds an optional kind attribute. -->
+  <xs:complexType name="EvidenceType">
+    <xs:sequence>
+      <xs:element name="details" type="xs:string"/>
+    </xs:sequence>
+    <xs:attribute name="tool" type="xs:string" use="required"/>
+    <xs:attribute name="status" type="EvidenceStatusType" use="required"/>
+    <xs:attribute name="kind" type="EvidenceKindType" use="optional"/>
+    <xs:attribute name="artifact_sha256" type="Sha256Type" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="CounterexampleType">
+    <xs:sequence>
+      <xs:element name="description" type="xs:string"/>
+      <xs:element name="assignment" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="tool" type="xs:string" use="optional"/>
+    <xs:attribute name="report-status" type="ReportStatusType" use="required"/>
+    <xs:attribute name="scope" type="xs:string" use="optional"/>
+    <xs:attribute name="artifact_sha256" type="Sha256Type" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="ProofReferenceType">
+    <xs:attribute name="tool" type="ProofToolType" use="required"/>
+    <xs:attribute name="theorem" type="xs:string" use="required"/>
+    <xs:attribute name="status" type="ClaimStatusType" use="required"/>
+    <xs:attribute name="artifact_sha256" type="Sha256Type" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="ResidualType">
+    <xs:attribute name="metric" type="xs:string" use="required"/>
+    <xs:attribute name="value" type="xs:decimal" use="required"/>
+    <xs:attribute name="tolerance" type="xs:decimal" use="required"/>
+    <xs:attribute name="tool" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="ToolchainEntryType">
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="version" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="SourceHashType">
+    <xs:attribute name="algorithm" type="HashAlgorithmType" use="required"/>
+    <xs:attribute name="role" type="HashRoleType" use="required"/>
+    <xs:attribute name="digest" type="Sha256Type" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="VerificationReportType">
+    <xs:sequence>
+      <xs:element name="details" type="xs:string"/>
+    </xs:sequence>
+    <xs:attribute name="status" type="ReportStatusType" use="required"/>
+    <xs:attribute name="tool" type="xs:string" use="optional"/>
+    <xs:attribute name="scope" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="ClaimType">
+    <xs:sequence>
+      <xs:element name="original-expression" type="xs:string"/>
+      <xs:element name="normalized-expression">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:group ref="MathNodeGroup"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="operator-signatures" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="signature" type="SignatureType" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="assumptions">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="assumption" type="xs:string" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="variable-scopes" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="variable" type="VariableType" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="candidate-invariants" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="invariant" type="InvariantType" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="dependencies" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="dependency" type="DependencyType" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="evidence" type="EvidenceType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="counterexample-evidence" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="counterexample" type="CounterexampleType" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="formal-proof-references" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="proof-reference" type="ProofReferenceType" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="numerical-residuals" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="residual" type="ResidualType" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="toolchain-versions" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="toolchain" type="ToolchainEntryType" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="source-hashes" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="hash" type="SourceHashType" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="verification-report" type="VerificationReportType" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:ID" use="required"/>
+    <xs:attribute name="source" type="xs:string" use="required"/>
+    <xs:attribute name="line" type="xs:positiveInteger" use="optional"/>
+    <xs:attribute name="domain" type="DomainType" use="required"/>
+    <xs:attribute name="status" type="ClaimStatusType" use="required"/>
+  </xs:complexType>
+
+  <!-- ======================= root ======================= -->
+
+  <xs:element name="research">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="operator-registry">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="operator" type="RegistryOperatorType" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="source" type="SourceType" maxOccurs="unbounded"/>
+        <xs:element name="claim" type="ClaimType" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="version" type="xs:string" use="required" fixed="2"/>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

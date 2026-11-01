@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Valid v2 example. All mathematical content is published data:
+  the q-expansion of the j-invariant and McKay's observation
+  196884 = 196883 + 1. Nothing here is marked verified: this engine holds
+  no formal proof artifact for any of these claims, so every claim is
+  candidate or bounded and every verification report is UNPROVEN.
+  Source sha256 basis: no digital copies of the two papers are held in
+  this corpus, so each source sha256 is the SHA-256 of the exact UTF-8
+  bibliographic locator string in the source path attribute (stated in
+  each provenance element). For sources held as local files the same
+  attribute carries the file digest, as in schema v1.
+-->
+<research version="2">
+  <operator-registry>
+    <operator name="add" arity="2" result="number"/>
+    <operator name="subtract" arity="2" result="number"/>
+    <operator name="multiply" arity="2" result="number"/>
+    <operator name="divide" arity="2" result="number"/>
+    <operator name="power" arity="2" result="number"/>
+    <operator name="negate" arity="1" result="number"/>
+    <operator name="equals" arity="2" result="proposition"/>
+    <operator name="not-equals" arity="2" result="proposition"/>
+    <operator name="less-than" arity="2" result="proposition"/>
+    <operator name="less-or-equal" arity="2" result="proposition"/>
+    <operator name="greater-than" arity="2" result="proposition"/>
+    <operator name="greater-or-equal" arity="2" result="proposition"/>
+    <operator name="coefficient" arity="2" result="number"/>
+  </operator-registry>
+
+  <source id="s1" path="Conway, J. H.; Norton, S. P. (1979). Monstrous Moonshine. Bulletin of the London Mathematical Society 11(3): 308-339." sha256="f8b96ee10bf5a99c286167d0cccb3b9849a2c3c23ced62ee78518a6da856c6dd">
+    <title>Monstrous Moonshine</title>
+    <author>John H. Conway</author>
+    <author>Simon P. Norton</author>
+    <publication-date>1979</publication-date>
+    <provenance>Published article, Bulletin of the London Mathematical Society 11(3), 308-339. No digital copy is held in this corpus; the sha256 attribute is the SHA-256 of the exact UTF-8 bibliographic locator string in the path attribute. For sources held as local files, the same attribute carries the file digest, as in schema v1.</provenance>
+  </source>
+
+  <source id="s2" path="McKay, J. (1980). Graphs, singularities, and finite groups. Proceedings of Symposia in Pure Mathematics 37: 183-186." sha256="e16aab3a1848c4e5e3e06e151d9ae72f4f2c8434f575d038740fbf2e4c3ae118">
+    <title>Graphs, singularities, and finite groups</title>
+    <author>John McKay</author>
+    <publication-date>1980</publication-date>
+    <provenance>Published article, Proceedings of Symposia in Pure Mathematics 37, 183-186. The observation 196884 = 196883 + 1 was communicated by McKay in 1978 and appears in print in this 1980 paper. No digital copy is held in this corpus; the sha256 attribute is the SHA-256 of the exact UTF-8 bibliographic locator string in the path attribute, on the same basis as source s1.</provenance>
+  </source>
+
+  <claim id="c1" source="s1" domain="moonshine" status="candidate">
+    <original-expression>j(q) = q^-1 + 744 + 196884 q + 21493760 q^2 + &#8943;</original-expression>
+    <normalized-expression>
+      <apply operator="equals">
+        <call function="j"><symbol name="q"/></call>
+        <apply operator="add">
+          <apply operator="add">
+            <apply operator="power">
+              <symbol name="q"/>
+              <apply operator="negate"><number value="1"/></apply>
+            </apply>
+            <number value="744"/>
+          </apply>
+          <apply operator="add">
+            <apply operator="multiply">
+              <number value="196884"/>
+              <symbol name="q"/>
+            </apply>
+            <apply operator="multiply">
+              <number value="21493760"/>
+              <apply operator="power">
+                <symbol name="q"/>
+                <number value="2"/>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </normalized-expression>
+    <operator-signatures>
+      <signature operator="equals" arity="2" argument-types="number, number" result-type="proposition"/>
+      <signature operator="add" arity="2" argument-types="number, number" result-type="number"/>
+      <signature operator="multiply" arity="2" argument-types="number, number" result-type="number"/>
+      <signature operator="power" arity="2" argument-types="number, integer" result-type="number"/>
+      <signature operator="negate" arity="1" argument-types="number" result-type="number"/>
+    </operator-signatures>
+    <assumptions>
+      <assumption>q = exp(2 pi i tau) with tau in the upper half-plane, so 0 &lt; |q| &lt; 1.</assumption>
+      <assumption>The coefficients are reproduced from the published q-expansion of the j-invariant; transcription is a source check, not a proof.</assumption>
+      <assumption>The normalized expression records the first four terms of the expansion; the remaining terms are indicated in the original expression and are not asserted individually here.</assumption>
+    </assumptions>
+    <variable-scopes>
+      <variable name="q" kind="variable" binding="free" scope="claim" type="complex number, 0 &lt; |q| &lt; 1"/>
+      <variable name="j" kind="function" binding="free" scope="claim" type="modular function of q"/>
+    </variable-scopes>
+    <candidate-invariants>
+      <invariant id="inv-j-normalization" status="candidate">The normalized J function J = j - 744 has constant coefficient 0; the 744 recorded in this claim is the constant coefficient of j itself, and 196884 and 21493760 are the coefficients of q and q^2 in both j and J.</invariant>
+    </candidate-invariants>
+    <evidence tool="published-table" status="bounded" kind="source-check" artifact_sha256="f8b96ee10bf5a99c286167d0cccb3b9849a2c3c23ced62ee78518a6da856c6dd">
+      <details>Coefficients compared against the q-expansion as published in the source recorded as s1. No formal proof artifact is claimed for this claim.</details>
+    </evidence>
+    <counterexample-evidence>
+      <counterexample report-status="UNPROVEN" scope="No counterexample search run by this engine at the time of recording">
+        <description>This entry records an open status, not a search result: no counterexample search has been run by this engine for this claim, and the absence of a counterexample is not evidence for the claim.</description>
+      </counterexample>
+    </counterexample-evidence>
+    <toolchain-versions>
+      <toolchain name="python" version="3.12.3"/>
+      <toolchain name="monster-bridge-validator" version="2"/>
+    </toolchain-versions>
+    <source-hashes>
+      <hash algorithm="sha256" role="source" digest="f8b96ee10bf5a99c286167d0cccb3b9849a2c3c23ced62ee78518a6da856c6dd"/>
+    </source-hashes>
+    <verification-report status="UNPROVEN" tool="monster-bridge-validator">
+      <details>Published data recorded as a candidate. This engine has not formally verified the q-expansion of j, and a bounded source check is not a proof.</details>
+    </verification-report>
+  </claim>
+
+  <claim id="c2" source="s1" domain="moonshine" status="bounded">
+    <original-expression>The coefficient of q in the q-expansion of j is 196884.</original-expression>
+    <normalized-expression>
+      <apply operator="equals">
+        <apply operator="coefficient">
+          <symbol name="j"/>
+          <number value="1"/>
+        </apply>
+        <number value="196884"/>
+      </apply>
+    </normalized-expression>
+    <operator-signatures>
+      <signature operator="equals" arity="2" argument-types="number, number" result-type="proposition"/>
+      <signature operator="coefficient" arity="2" argument-types="series, integer exponent" result-type="number"/>
+    </operator-signatures>
+    <assumptions>
+      <assumption>coefficient(j, n) denotes the coefficient of q^n in the q-expansion recorded in claim c1.</assumption>
+      <assumption>Bounded means: the value is taken from the published expansion in source s1 and is asserted only as published data, within that source check.</assumption>
+    </assumptions>
+    <variable-scopes>
+      <variable name="j" kind="function" binding="free" scope="claim" type="modular function, read as its q-expansion"/>
+      <variable name="q" kind="variable" binding="free" scope="claim" type="complex number, 0 &lt; |q| &lt; 1"/>
+    </variable-scopes>
+    <dependencies>
+      <dependency ref="c1" relation="depends-on"/>
+    </dependencies>
+    <evidence tool="published-table" status="bounded" kind="source-check" artifact_sha256="f8b96ee10bf5a99c286167d0cccb3b9849a2c3c23ced62ee78518a6da856c6dd">
+      <details>Value read from the expansion in claim c1 against source s1. No formal proof artifact is claimed.</details>
+    </evidence>
+    <toolchain-versions>
+      <toolchain name="python" version="3.12.3"/>
+      <toolchain name="monster-bridge-validator" version="2"/>
+    </toolchain-versions>
+    <source-hashes>
+      <hash algorithm="sha256" role="source" digest="f8b96ee10bf5a99c286167d0cccb3b9849a2c3c23ced62ee78518a6da856c6dd"/>
+    </source-hashes>
+    <verification-report status="UNPROVEN" tool="monster-bridge-validator">
+      <details>Bounded published data. Not formally verified by this engine.</details>
+    </verification-report>
+  </claim>
+
+  <claim id="c3" source="s1" domain="moonshine" status="bounded">
+    <original-expression>The coefficient of q^2 in the q-expansion of j is 21493760.</original-expression>
+    <normalized-expression>
+      <apply operator="equals">
+        <apply operator="coefficient">
+          <symbol name="j"/>
+          <number value="2"/>
+        </apply>
+        <number value="21493760"/>
+      </apply>
+    </normalized-expression>
+    <operator-signatures>
+      <signature operator="equals" arity="2" argument-types="number, number" result-type="proposition"/>
+      <signature operator="coefficient" arity="2" argument-types="series, integer exponent" result-type="number"/>
+    </operator-signatures>
+    <assumptions>
+      <assumption>coefficient(j, n) denotes the coefficient of q^n in the q-expansion recorded in claim c1.</assumption>
+      <assumption>Bounded means: the value is taken from the published expansion in source s1 and is asserted only as published data, within that source check.</assumption>
+    </assumptions>
+    <variable-scopes>
+      <variable name="j" kind="function" binding="free" scope="claim" type="modular function, read as its q-expansion"/>
+      <variable name="q" kind="variable" binding="free" scope="claim" type="complex number, 0 &lt; |q| &lt; 1"/>
+    </variable-scopes>
+    <dependencies>
+      <dependency ref="c1" relation="depends-on"/>
+    </dependencies>
+    <evidence tool="published-table" status="bounded" kind="source-check" artifact_sha256="f8b96ee10bf5a99c286167d0cccb3b9849a2c3c23ced62ee78518a6da856c6dd">
+      <details>Value read from the expansion in claim c1 against source s1. No formal proof artifact is claimed.</details>
+    </evidence>
+    <toolchain-versions>
+      <toolchain name="python" version="3.12.3"/>
+      <toolchain name="monster-bridge-validator" version="2"/>
+    </toolchain-versions>
+    <source-hashes>
+      <hash algorithm="sha256" role="source" digest="f8b96ee10bf5a99c286167d0cccb3b9849a2c3c23ced62ee78518a6da856c6dd"/>
+    </source-hashes>
+    <verification-report status="UNPROVEN" tool="monster-bridge-validator">
+      <details>Bounded published data. Not formally verified by this engine.</details>
+    </verification-report>
+  </claim>
+
+  <claim id="c4" source="s2" domain="monster" status="candidate">
+    <original-expression>196884 = 196883 + 1 (McKay's observation).</original-expression>
+    <normalized-expression>
+      <apply operator="equals">
+        <number value="196884"/>
+        <apply operator="add">
+          <number value="196883"/>
+          <number value="1"/>
+        </apply>
+      </apply>
+    </normalized-expression>
+    <operator-signatures>
+      <signature operator="equals" arity="2" argument-types="integer, integer" result-type="proposition"/>
+      <signature operator="add" arity="2" argument-types="integer, integer" result-type="integer"/>
+    </operator-signatures>
+    <assumptions>
+      <assumption>196883 and 196884 are read as integers. The arithmetic identity alone does not assert the representation-theoretic reading recorded in the candidate invariant.</assumption>
+    </assumptions>
+    <candidate-invariants>
+      <invariant id="inv-mckay-196884" status="candidate">196884 is the dimension of the Griess algebra and 196883 is the dimension of the smallest non-trivial irreducible representation of the Monster group; McKay's observation that the q coefficient 196884 of claim c2 equals 196883 + 1 motivated monstrous moonshine. Recorded as a published observation, not as a proof of moonshine.</invariant>
+    </candidate-invariants>
+    <dependencies>
+      <dependency ref="c2" relation="uses"/>
+    </dependencies>
+    <evidence tool="published-table" status="candidate" kind="source-check" artifact_sha256="e16aab3a1848c4e5e3e06e151d9ae72f4f2c8434f575d038740fbf2e4c3ae118">
+      <details>Observation as published in the source recorded as s2. No formal proof artifact is claimed; the moonshine correspondence is not established by this arithmetic identity.</details>
+    </evidence>
+    <numerical-residuals>
+      <residual metric="196884 - (196883 + 1)" value="0" tolerance="0" tool="exact integer arithmetic"/>
+    </numerical-residuals>
+    <toolchain-versions>
+      <toolchain name="python" version="3.12.3"/>
+      <toolchain name="monster-bridge-validator" version="2"/>
+    </toolchain-versions>
+    <source-hashes>
+      <hash algorithm="sha256" role="source" digest="e16aab3a1848c4e5e3e06e151d9ae72f4f2c8434f575d038740fbf2e4c3ae118"/>
+    </source-hashes>
+    <verification-report status="UNPROVEN" tool="monster-bridge-validator">
+      <details>The integer identity is exact (residual 0), and exact arithmetic is not a formal proof of the moonshine correspondence. The representation-theoretic interpretation remains a published observation in this record.</details>
+    </verification-report>
+  </claim>
+
+</research>
