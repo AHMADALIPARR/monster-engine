@@ -1,0 +1,75 @@
+coverage run: HiGHS binary: /home/hatch/workspace/.tools/highs/bin/highs (exit 0)
+
+--- brute force (ampl/coverage_brute.py) ---
+checkable contract items (universe size): 20
+depends_on edges among checkable items: 17 (all targets checkable, so full coverage is dependency-closed)
+verification tasks: 12
+covering constraints: 20 (one per checkable item)
+coverage.lp cross-check: objective costs and covering constraints match the task table above
+subsets enumerated: 4096
+brute-force optimum cost: 20
+optimal solutions found: 2
+optimal set: geo_full, lie_full, mon_full, moon_data (cost 20)
+optimal set: geo_full, lie_action, lie_bracket, mon_full, moon_data (cost 20)
+
+--- HiGHS output (ampl/coverage.lp) ---
+Running HiGHS 1.15.1 (git hash: 04024d7): Copyright (c) 2026 under MIT licence terms
+Includes third-party software components, see THIRD_PARTY_NOTICES.md for full details
+Command line parsed using CLI11 2.5.0: Copyright (c) 2017-2025 University of Cincinnati
+MIP coverage has 20 rows; 12 cols; 44 nonzeros; 12 integer variables (12 binary)
+Coefficient ranges:
+  Matrix  [1e+00, 1e+00]
+  Cost    [2e+00, 7e+00]
+  Bound   [1e+00, 1e+00]
+  RHS     [1e+00, 1e+00]
+Presolving model
+19 rows, 10 cols, 39 nonzeros 0s
+10 rows, 10 cols, 25 nonzeros 0s
+10 rows, 10 cols, 25 nonzeros 0s
+Presolve reductions: rows 10(-10); columns 10(-2); nonzeros 25(-19) 
+Objective function is integral with scale 1
+
+Solving MIP model with:
+   10 rows
+   10 cols (10 binary, 0 integer, 0 implied int., 0 continuous, 0 domain fixed)
+   25 nonzeros
+   Thread count 2 (of 4 threads). Using 1 max workers. Parallel search off
+
+Src: B => Branching; C => Central rounding; F => Feasibility pump; H => Heuristic;
+     I => Shifting; J => Feasibility jump; L => Sub-MIP; P => Empty MIP; R => Randomized rounding;
+     S => Solve LP; T => Evaluate node; U => Unbounded; X => User solution; Y => HiGHS solution;
+     Z => ZI Round; l => Trivial lower; p => Trivial point; u => Trivial upper; z => Trivial zero
+
+        Nodes      |    B&B Tree     |            Objective Bounds              |  Dynamic Constraints |       Work      
+Src  Proc. InQueue |  Leaves   Expl. | BestBound       BestSol              Gap |   Cuts   InLp Confl. | LpIters     Time
+
+ u       0       0         0   0.00%   -inf            41                 Large        0      0      0         0     0.0s
+ J       0       0         0   0.00%   -inf            34                 Large        0      0      0         0     0.0s
+ T       0       0         0   0.00%   12              20                40.00%        0      0      0         7     0.0s
+         1       0         1 100.00%   20              20                 0.00%        0      0      0         7     0.0s
+
+Solving report
+  Model             coverage
+  Status            Optimal
+  Primal bound      20
+  Dual bound        20
+  Gap               0% (tolerance: 0.01%)
+  P-D integral      0.000345844380996
+  Solution status   feasible
+                    20 (objective)
+                    0 (bound viol.)
+                    0 (int. viol.)
+                    0 (row viol.)
+  Timing            0.02
+                    0.00 (Presolve)
+                    0.02 (Solve)
+                    0.00 (Postsolve)
+  Max sub-MIP depth 0
+  Nodes             1
+  Repair LPs        0
+  LP iterations     7
+                    0 (strong br.)
+                    0 (separation)
+                    0 (heuristics)
+
+agreement: solver objective 20 equals brute-force optimum 20
