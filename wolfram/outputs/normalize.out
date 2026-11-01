@@ -1,0 +1,40 @@
+=== normalize.wl (Mathics3) ===
+J coefficients (published data): jCoeffs = {744, 196884, 21493760, 864299970}
+J c0 (constant term, coefficient of q^0): 744
+J c1 (coefficient of q^1): 196884
+J c2 (coefficient of q^2): 21493760
+J c3 (coefficient of q^3): 864299970
+J polynomial (truncated, without q^-1 term): jPoly = 744 + 196884 q + 21493760 q^2 + 864299970 q^3
+J polynomial evaluated: 744 + 196884 q + 21493760 q ^ 2 + 864299970 q ^ 3
+--- Identity 1: (x + y)^2 expansion ---
+Original 1: (x + y) ^ 2
+Normalized 1 (Expand[(x + y)^2]): x ^ 2 + 2 x y + y ^ 2
+Identity check 1: Expand[(x + y)^2] == x^2 + 2 x y + y^2 : True
+--- Identity 2: x^2 - 1 factorization ---
+Original 2: -1 + x ^ 2
+Normalized 2 (Factor[x^2 - 1]): (-1 + x) (1 + x)
+Identity check 2: Factor[x^2 - 1] == (x - 1) (x + 1) : True
+--- Identity 2b: (x - 1) (x + 1) expansion (cross-check) ---
+Original 2b: (-1 + x) (1 + x)
+Normalized 2b (Expand[(x - 1) (x + 1)]): -1 + x ^ 2
+Identity check 2b: Expand[(x - 1) (x + 1)] == x^2 - 1 : True
+--- Coefficient extraction cross-check ---
+Coefficient[jPoly, q, 1] = 196884
+Coefficient check: Coefficient[jPoly, q, 1] == 196884 : True
+Coefficient[jPoly, q, 0] = 744
+Coefficient[jPoly, q, 2] = 21493760
+Coefficient[jPoly, q, 3] = 864299970
+--- McKay arithmetic ---
+McKay difference: 196884 - 196883 = 1
+McKay verification: 196884 - 196883 == 1 : True
+McKay form: 196884 = 196883 + 1 : True
+--- Coefficient ratios (exact rationals) ---
+Ratio c1/c0: 196884/744 = 16407 / 62
+Ratio c2/c1: 21493760/196884 = 5373440 / 49221
+Ratio c3/c2: 864299970/21493760 = 86429997 / 2149376
+Ratio c1/196883: 196884/196883 = 196884 / 196883
+--- Coefficient differences (exact integers) ---
+Difference c1 - c0: 196884 - 744 = 196140
+Difference c2 - c1: 21493760 - 196884 = 21296876
+Difference c3 - c2: 864299970 - 21493760 = 842806210
+=== normalize.wl done ===

@@ -1,0 +1,8 @@
+bracket_e0_e1
+[0 0 1]
+bracket_e1_e2
+[1 0 0]
+jacobi_max_abs_unperturbed
+0
+jacobi_max_abs_perturbed
+1

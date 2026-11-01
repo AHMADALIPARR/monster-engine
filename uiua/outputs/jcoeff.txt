@@ -1,0 +1,8 @@
+coefficients
+[744 196884 21493760 864299970]
+mckay_difference
+196883
+partial_sums
+[744 197628 21691388 885991358]
+consecutive_differences
+[196140 21296876 842806210]

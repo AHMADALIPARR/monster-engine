@@ -1,0 +1,12 @@
+flip_both
+[[4 3] [2 1]]
+residual_rows_cols
+0
+residual_rows_both
+0
+residual_cols_both
+0
+residual_rows_twice_vs_original
+0
+contrast_residual_transpose_rows
+3

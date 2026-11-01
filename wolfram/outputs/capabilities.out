@@ -1,0 +1,12 @@
+=== capabilities.wl (Mathics3) ===
+SUPPORTED: Expand result = x ^ 2 + 2 x y + y ^ 2
+SUPPORTED: Factor result = (-1 + x) (1 + x)
+SUPPORTED: Coefficient result = 196884
+SUPPORTED: Part result = 196884
+SUPPORTED: Simplify result = 1 + x
+SUPPORTED: Series result = 1 + x + x ^ 2 / 2 + x ^ 3 / 6 + O[x] ^ 4
+CAPABILITY_FAILURE: BitAnd unevaluated on BitAnd[5, 3], expected 1 - Bit* builtins are not evaluated by Mathics3
+CAPABILITY_FAILURE: TestReport unevaluated - TestReport is not implemented in Mathics3
+CAPABILITY_FAILURE: VerificationTest unevaluated - VerificationTest is not implemented in Mathics3
+Required failures: 0
+capabilities.wl: PASS - all REQUIRED operations SUPPORTED (optional failures above, if any, are explicit)
