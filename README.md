@@ -29,6 +29,10 @@ graded verification status through every stage of the pipeline.
   of central charge 24 whose graded dimensions recover the coefficients of J(τ).</sub>
 </p>
 
+<p align="center">
+  <img src="assets/monster-moonshine-centerfold.jpg" alt="Monster Moonshine — vintage centerfold featuring the Monster, the modular J-function, SL₂(ℤ) action, and the moon" width="820"/>
+</p>
+
 ```
         196884 = 196883 + 1
      McKay’s observation that opened the door
