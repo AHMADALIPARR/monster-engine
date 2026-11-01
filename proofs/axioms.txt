@@ -1,0 +1,10 @@
+#print axioms output — headline theorem of each file
+(produced by 'lake build', Lean v4.9.0 / Mathlib v4.9.0; lines are the compiler's own)
+
+info: ././././MonsterBridge/DependencyModel.lean:138:0: 'MonsterBridge.DependencyModel.topoRank_no_cycle' does not depend on any axioms
+info: ././././MonsterBridge/Representation.lean:69:0: 'MonsterBridge.Representation.comp_id_repr' depends on axioms: [propext, Quot.sound]
+info: ././././MonsterBridge/LieBracket.lean:104:0: 'MonsterBridge.LieBracket.bracket_self_add_self_eq_zero' depends on axioms: [propext]
+info: ././././MonsterBridge/GroupAction.lean:116:0: 'MonsterBridge.GroupAction.HomAction.act_inv_apply' depends on axioms: [propext]
+
+No Classical.choice and no sorryAx occur in any headline theorem.
+MonsterBridge.DependencyModel.topoRank_no_cycle depends on no axioms at all.

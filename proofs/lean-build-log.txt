@@ -1,0 +1,222 @@
+MONSTER-BRIDGE Phase 6 — Lean build log
+Project: ~/workspace/monster-engine/lean (Lake, lean-toolchain leanprover/lean4:v4.9.0, mathlib v4.9.0)
+Tar shim used for cache get: /tmp/tar-shim/tar -> /usr/bin/tar --no-same-owner
+Note: 'lake update' cloning of mathlib was extremely slow and was stopped; the dependency packages were instead copied from the proven testbed ~/workspace/scm-mathlib-test/.lake/packages (identical lake-manifest.json, mathlib v4.9.0), after which the prescribed 'lake exe cache get' below ran normally against the local ~/.cache/mathlib cache.
+
+===== lake exe cache get =====
+Sun Nov  1 06:50:31 UTC 2026
+No files to download
+Decompressing 4732 file(s)
+Unpacked in 2985 ms
+Completed successfully!
+CACHE_EXIT:0
+Sun Nov  1 06:50:53 UTC 2026
+
+===== lake build — attempt 1 (FAILED: mul_inv_cancel name in 4.9 is the GroupWithZero lemma; LieBracket notation declared before its variable) =====
+ℹ [4737/4742] Built MonsterBridge.DependencyModel
+info: ././././MonsterBridge/DependencyModel.lean:138:0: 'MonsterBridge.DependencyModel.topoRank_no_cycle' does not depend on any axioms
+ℹ [4738/4742] Built MonsterBridge.Representation
+info: ././././MonsterBridge/Representation.lean:69:0: 'MonsterBridge.Representation.comp_id_repr' depends on axioms: [propext, Quot.sound]
+✖ [4739/4742] Building MonsterBridge.LieBracket
+trace: .> LEAN_PATH=././.lake/packages/batteries/.lake/build/lib:././.lake/packages/Qq/.lake/build/lib:././.lake/packages/aesop/.lake/build/lib:././.lake/packages/proofwidgets/.lake/build/lib:././.lake/packages/Cli/.lake/build/lib:././.lake/packages/importGraph/.lake/build/lib:././.lake/packages/mathlib/.lake/build/lib:././.lake/build/lib LD_LIBRARY_PATH=././.lake/build/lib /home/hatch/.elan/toolchains/leanprover--lean4---v4.9.0/bin/lean ././././MonsterBridge/LieBracket.lean -R ./././. -o ././.lake/build/lib/MonsterBridge/LieBracket.olean -i ././.lake/build/lib/MonsterBridge/LieBracket.ilean -c ././.lake/build/ir/MonsterBridge/LieBracket.c --json
+error: ././././MonsterBridge/LieBracket.lean:44:35: unknown identifier 'bracket' at quotation precheck; you can use `set_option quotPrecheck false` to disable this check.
+error: ././././MonsterBridge/LieBracket.lean:54:4: elaboration function for 'MonsterBridge.LieBracket.term⟦_,_⟧._@.MonsterBridge.LieBracket._hyg.6' has not been implemented
+  ⟦x, x⟧
+error: ././././MonsterBridge/LieBracket.lean:61:4: elaboration function for 'MonsterBridge.LieBracket.term⟦_,_⟧._@.MonsterBridge.LieBracket._hyg.6' has not been implemented
+  ⟦x, x⟧
+error: ././././MonsterBridge/LieBracket.lean:62:39: elaboration function for 'MonsterBridge.LieBracket.term⟦_,_⟧._@.MonsterBridge.LieBracket._hyg.6' has not been implemented
+  ⟦x, x⟧
+error: ././././MonsterBridge/LieBracket.lean:62:57: application type mismatch
+  antisymm bracket
+argument
+  bracket
+has type
+  L → L → L : Type u_1
+but is expected to have type
+  L : Type u_1
+error: ././././MonsterBridge/LieBracket.lean:61:27: unsolved goals
+L : Type u_1
+inst✝ : AddCommGroup L
+bracket : L → L → L
+antisymm : ∀ (x y : L), bracket x y = -bracket y x
+jacobi : ∀ (x y z : L), bracket x (bracket y z) + bracket y (bracket z x) + bracket z (bracket x y) = 0
+x : L
+⊢ sorryAx (Sort u_2) true
+error: ././././MonsterBridge/LieBracket.lean:71:4: elaboration function for 'MonsterBridge.LieBracket.term⟦_,_⟧._@.MonsterBridge.LieBracket._hyg.6' has not been implemented
+  ⟦x, x⟧
+error: ././././MonsterBridge/LieBracket.lean:72:20: unknown identifier 'bracket_self_add_self_eq_zero'
+error: ././././MonsterBridge/LieBracket.lean:76:4: elaboration function for 'MonsterBridge.LieBracket.term⟦_,_⟧._@.MonsterBridge.LieBracket._hyg.6' has not been implemented
+  ⟦x, y⟧
+error: ././././MonsterBridge/LieBracket.lean:77:15: application type mismatch
+  antisymm bracket
+argument
+  bracket
+has type
+  L → L → L : Type u_1
+but is expected to have type
+  L : Type u_1
+error: ././././MonsterBridge/LieBracket.lean:77:6: tactic 'rewrite' failed, equality or iff proof expected
+  ?m.17472
+L : Type u_1
+inst✝ : AddCommGroup L
+bracket : L → L → L
+antisymm : ∀ (x y : L), bracket x y = -bracket y x
+jacobi : ∀ (x y z : L), bracket x (bracket y z) + bracket y (bracket z x) + bracket z (bracket x y) = 0
+x y : L
+⊢ sorryAx (Sort u_2) true
+error: ././././MonsterBridge/LieBracket.lean:83:4: elaboration function for 'MonsterBridge.LieBracket.term⟦_,_⟧._@.MonsterBridge.LieBracket._hyg.6' has not been implemented
+  ⟦x, ⟦y, z⟧⟧
+error: ././././MonsterBridge/LieBracket.lean:84:19: application type mismatch
+  jacobi bracket
+argument
+  bracket
+has type
+  L → L → L : Type u_1
+but is expected to have type
+  L : Type u_1
+error: ././././MonsterBridge/LieBracket.lean:83:50: unsolved goals
+L : Type u_1
+inst✝ : AddCommGroup L
+bracket : L → L → L
+antisymm : ∀ (x y : L), bracket x y = -bracket y x
+jacobi : ∀ (x y z : L), bracket x (bracket y z) + bracket y (bracket z x) + bracket z (bracket x y) = 0
+x y z : L
+⊢ sorryAx (Sort u_2) true
+error: ././././MonsterBridge/LieBracket.lean:91:4: elaboration function for 'MonsterBridge.LieBracket.term⟦_,_⟧._@.MonsterBridge.LieBracket._hyg.6' has not been implemented
+  ⟦y, ⟦z, x⟧⟧
+error: ././././MonsterBridge/LieBracket.lean:92:9: application type mismatch
+  jacobi bracket
+argument
+  bracket
+has type
+  L → L → L : Type u_1
+but is expected to have type
+  L : Type u_1
+error: ././././MonsterBridge/LieBracket.lean:97:4: elaboration function for 'MonsterBridge.LieBracket.term⟦_,_⟧._@.MonsterBridge.LieBracket._hyg.6' has not been implemented
+  ⟦x, ⟦y, z⟧⟧
+error: ././././MonsterBridge/LieBracket.lean:98:15: application type mismatch
+  antisymm bracket
+argument
+  bracket
+has type
+  L → L → L : Type u_1
+but is expected to have type
+  L : Type u_1
+error: ././././MonsterBridge/LieBracket.lean:98:6: tactic 'rewrite' failed, equality or iff proof expected
+  ?m.27734
+L : Type u_1
+inst✝ : AddCommGroup L
+bracket : L → L → L
+antisymm : ∀ (x y : L), bracket x y = -bracket y x
+jacobi : ∀ (x y z : L), bracket x (bracket y z) + bracket y (bracket z x) + bracket z (bracket x y) = 0
+x y z : L
+⊢ sorryAx (Sort u_2) true
+error: ././././MonsterBridge/LieBracket.lean:103:14: unknown constant 'MonsterBridge.LieBracket.bracket_self_add_self_eq_zero'
+error: Lean exited with code 1
+✖ [4740/4742] Building MonsterBridge.GroupAction
+trace: .> LEAN_PATH=././.lake/packages/batteries/.lake/build/lib:././.lake/packages/Qq/.lake/build/lib:././.lake/packages/aesop/.lake/build/lib:././.lake/packages/proofwidgets/.lake/build/lib:././.lake/packages/Cli/.lake/build/lib:././.lake/packages/importGraph/.lake/build/lib:././.lake/packages/mathlib/.lake/build/lib:././.lake/build/lib LD_LIBRARY_PATH=././.lake/build/lib /home/hatch/.elan/toolchains/leanprover--lean4---v4.9.0/bin/lean ././././MonsterBridge/GroupAction.lean -R ./././. -o ././.lake/build/lib/MonsterBridge/GroupAction.olean -i ././.lake/build/lib/MonsterBridge/GroupAction.ilean -c ././.lake/build/ir/MonsterBridge/GroupAction.c --json
+error: ././././MonsterBridge/GroupAction.lean:38:18: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  ?m.14029 * ?m.14029⁻¹
+G : Type u_1
+α : Type u_2
+inst✝¹ : Group G
+inst✝ : MulAction G α
+g : G
+x : α
+⊢ (g * g⁻¹) • x = x
+error: ././././MonsterBridge/GroupAction.lean:42:18: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  ?m.19098⁻¹ * ?m.19098
+G : Type u_1
+α : Type u_2
+inst✝¹ : Group G
+inst✝ : MulAction G α
+g : G
+x : α
+⊢ (g⁻¹ * g) • x = x
+error: ././././MonsterBridge/GroupAction.lean:71:28: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  ?m.28952 * ?m.28952⁻¹
+G✝ : Type u_1
+α✝ : Type u_2
+inst✝² : Group G✝
+inst✝¹ : MulAction G✝ α✝
+G : Type u_3
+α : Type u_4
+inst✝ : Group G
+A : HomAction G α
+g : G
+x : α
+⊢ A.act (g * g⁻¹) x = A.act 1 x
+error: ././././MonsterBridge/GroupAction.lean:77:28: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  ?m.31912⁻¹ * ?m.31912
+G✝ : Type u_1
+α✝ : Type u_2
+inst✝² : Group G✝
+inst✝¹ : MulAction G✝ α✝
+G : Type u_3
+α : Type u_4
+inst✝ : Group G
+A : HomAction G α
+g : G
+x : α
+⊢ A.act (g⁻¹ * g) x = A.act 1 x
+info: ././././MonsterBridge/GroupAction.lean:110:0: 'MonsterBridge.GroupAction.HomAction.act_inv_apply' depends on axioms: [propext, sorryAx]
+error: Lean exited with code 1
+Some builds logged failures:
+- MonsterBridge.LieBracket
+- MonsterBridge.GroupAction
+error: build failed
+BUILD_EXIT:1
+Sun Nov  1 06:52:56 UTC 2026
+
+===== lake build — attempt 2 (FAILED: one error, add_neg_cancel unknown in 4.9) =====
+Sun Nov  1 06:54:43 UTC 2026
+ℹ [4737/4742] Replayed MonsterBridge.Representation
+info: ././././MonsterBridge/Representation.lean:69:0: 'MonsterBridge.Representation.comp_id_repr' depends on axioms: [propext, Quot.sound]
+ℹ [4738/4742] Replayed MonsterBridge.DependencyModel
+info: ././././MonsterBridge/DependencyModel.lean:138:0: 'MonsterBridge.DependencyModel.topoRank_no_cycle' does not depend on any axioms
+ℹ [4739/4742] Built MonsterBridge.GroupAction
+info: ././././MonsterBridge/GroupAction.lean:116:0: 'MonsterBridge.GroupAction.HomAction.act_inv_apply' depends on axioms: [propext]
+✖ [4740/4742] Building MonsterBridge.LieBracket
+trace: .> LEAN_PATH=././.lake/packages/batteries/.lake/build/lib:././.lake/packages/Qq/.lake/build/lib:././.lake/packages/aesop/.lake/build/lib:././.lake/packages/proofwidgets/.lake/build/lib:././.lake/packages/Cli/.lake/build/lib:././.lake/packages/importGraph/.lake/build/lib:././.lake/packages/mathlib/.lake/build/lib:././.lake/build/lib LD_LIBRARY_PATH=././.lake/build/lib /home/hatch/.elan/toolchains/leanprover--lean4---v4.9.0/bin/lean ././././MonsterBridge/LieBracket.lean -R ./././. -o ././.lake/build/lib/MonsterBridge/LieBracket.olean -i ././.lake/build/lib/MonsterBridge/LieBracket.ilean -c ././.lake/build/ir/MonsterBridge/LieBracket.c --json
+error: ././././MonsterBridge/LieBracket.lean:79:8: unknown identifier 'add_neg_cancel'
+info: ././././MonsterBridge/LieBracket.lean:104:0: 'MonsterBridge.LieBracket.bracket_self_add_self_eq_zero' depends on axioms: [propext]
+error: Lean exited with code 1
+Some builds logged failures:
+- MonsterBridge.LieBracket
+error: build failed
+BUILD_EXIT:1
+Sun Nov  1 06:55:09 UTC 2026
+
+===== lake build — attempt 3 (SUCCESS) =====
+Sun Nov  1 06:55:19 UTC 2026
+ℹ [4737/4742] Replayed MonsterBridge.GroupAction
+info: ././././MonsterBridge/GroupAction.lean:116:0: 'MonsterBridge.GroupAction.HomAction.act_inv_apply' depends on axioms: [propext]
+ℹ [4738/4742] Replayed MonsterBridge.Representation
+info: ././././MonsterBridge/Representation.lean:69:0: 'MonsterBridge.Representation.comp_id_repr' depends on axioms: [propext, Quot.sound]
+ℹ [4739/4742] Replayed MonsterBridge.DependencyModel
+info: ././././MonsterBridge/DependencyModel.lean:138:0: 'MonsterBridge.DependencyModel.topoRank_no_cycle' does not depend on any axioms
+ℹ [4740/4742] Built MonsterBridge.LieBracket
+info: ././././MonsterBridge/LieBracket.lean:104:0: 'MonsterBridge.LieBracket.bracket_self_add_self_eq_zero' depends on axioms: [propext]
+✔ [4741/4742] Built MonsterBridge
+Build completed successfully.
+BUILD_EXIT:0
+Sun Nov  1 06:56:01 UTC 2026
+
+===== lake build — final clean rebuild of the MonsterBridge modules (SUCCESS) =====
+Sun Nov  1 06:56:12 UTC 2026
+ℹ [4737/4742] Built MonsterBridge.DependencyModel
+info: ././././MonsterBridge/DependencyModel.lean:138:0: 'MonsterBridge.DependencyModel.topoRank_no_cycle' does not depend on any axioms
+ℹ [4738/4742] Built MonsterBridge.Representation
+info: ././././MonsterBridge/Representation.lean:69:0: 'MonsterBridge.Representation.comp_id_repr' depends on axioms: [propext, Quot.sound]
+ℹ [4739/4742] Built MonsterBridge.LieBracket
+info: ././././MonsterBridge/LieBracket.lean:104:0: 'MonsterBridge.LieBracket.bracket_self_add_self_eq_zero' depends on axioms: [propext]
+ℹ [4740/4742] Built MonsterBridge.GroupAction
+info: ././././MonsterBridge/GroupAction.lean:116:0: 'MonsterBridge.GroupAction.HomAction.act_inv_apply' depends on axioms: [propext]
+✔ [4741/4742] Built MonsterBridge
+Build completed successfully.
+BUILD_EXIT:0
+Sun Nov  1 06:56:51 UTC 2026
+
+===== sorry/admit grep over all sources =====
+grep -rn 'sorry|admit' MonsterBridge.lean MonsterBridge/ -> no matches
+grep -rn 'sorryAx' MonsterBridge/ -> no matches
