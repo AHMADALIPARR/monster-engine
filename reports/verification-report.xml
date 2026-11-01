@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<research version="1">
+  <source id="s1" path="reports/IMPLEMENTATION-REPORT.md" sha256="3ae21220be0f358428b976dd020c6dc1d9930cb5d3c4da4c7cf833f03d488af6" />
+  <claim id="c1" source="s1" line="1" domain="engine" status="bounded">
+    <expression>Owner seed reference (monster_bridge/): scan/xml/validate run green, 4 records each, domains moonshine/monster/lie; seed preserved byte-identical.</expression>
+    <assumptions>Phase-report entry, not a corpus extraction. Evidence is the seed source itself; its validator checks metadata structure, not proof validity (its own README states this).</assumptions>
+    <evidence tool="python" status="bounded" artifact_sha256="30774e64016c63cb0c33687465910fb297b990a77e5b58ff8935a6cc2625d858">
+      <details>monster_bridge/src/bridge.py, preserved verbatim; suite re-run in the Phase 9 master pass.</details>
+    </evidence>
+  </claim>
+  <claim id="c2" source="s1" line="1" domain="monster" status="verified">
+    <expression>Lean archive: 35 theorems proved with zero sorry — abstract group-action laws and consequences, representation composition, bracket consequences from stated hypotheses, and dependency-model soundness (no cycle in a rankable model; headline theorem uses no axioms).</expression>
+    <assumptions>Abstract theorems only. Nothing here establishes that the Monster Group satisfies the hypotheses. Status verified refers to the Lean proof artifacts, per the validator rule.</assumptions>
+    <evidence tool="lean" status="verified" artifact_sha256="7f14226821a4e14b0547341cdbf89208abddec9c993f5012436516d2317ae940">
+      <details>Compiled proof artifact: lean/.lake/build/lib/MonsterBridge/DependencyModel.olean (Lean v4.9.0 + Mathlib v4.9.0). Full axiom audit in proofs/axioms.txt.</details>
+    </evidence>
+  </claim>
+  <claim id="c3" source="s1" line="1" domain="engine" status="bounded">
+    <expression>XML schema v2 with validator: 7/7 tests — valid document accepted; malformed XML, unsupported operator, unresolved reference, dependency cycle, and unsubstantiated verified status all rejected.</expression>
+    <assumptions>Structural and semantic validation of the interchange format; validates documents, not mathematical truth.</assumptions>
+    <evidence tool="python" status="bounded" artifact_sha256="256d67fa194cd60d1a12dacb58ba68a0d1b6b29eacbb7be82359fda4fb80094e">
+      <details>schemas/test-output.txt — recorded run of schemas/run_tests.sh.</details>
+    </evidence>
+  </claim>
+  <claim id="c4" source="s1" line="1" domain="moonshine" status="bounded">
+    <expression>Corpus extraction on a synthetic 1,050,000-line corpus: recall exact per family (24,016 planted = 24,016 extracted); throughput 26,944 lines/sec, peak RSS 19,212 KB, 38.97 s wall.</expression>
+    <assumptions>The corpus is synthetic (generated, seed 20261031). The benchmark measures this extractor on synthetic data and says nothing about historical documents.</assumptions>
+    <evidence tool="python" status="bounded" artifact_sha256="8db209936645e16e4b87db52b0d00138011f4d74fb74ff6b0ed7fed5449c7f34">
+      <details>benchmarks/corpus-benchmark.txt — raw /usr/bin/time -v output and recall verification.</details>
+    </evidence>
+  </claim>
+  <claim id="c5" source="s1" line="1" domain="engine" status="bounded">
+    <expression>Curry toolchain recovery: SWI-Prolog 9.0.4 and PAKCS 3.9.0 installed; all seven directive section-3 verification items executed (startup, unification, recursive Horn clauses, nondeterminism, backtracking, occurs-check behavior, bounded cyclic search).</expression>
+    <assumptions>Toolchain capability evidence. Occurs-check entry records observed behavior (finite failure on all probes); no internal mechanism is claimed.</assumptions>
+    <evidence tool="pakcs" status="bounded" artifact_sha256="7edc12dae944a021f5fa2db58603f7785fe30c0a7a4d9fc96ca11c26b0ed62db">
+      <details>Full battery record: reports/toolchain-curry.md and curry/battery/outputs/. Artifact hash shown is the Phase 4 resolution output, produced by the same installation.</details>
+    </evidence>
+  </claim>
+  <claim id="c6" source="s1" line="1" domain="engine" status="bounded">
+    <expression>Curry dependency resolution over the 28 contract items: 20 resolvable, 8 blocked (exactly the abstract-only items); Curry results agree with an independent Python checker; derivation trees cite clauses and substitutions; fuel-bounded cyclic closure terminates, labeled BOUNDED.</expression>
+    <assumptions>Derivations are only as trustworthy as their premises; the premises are the contracts/families.json classifications, which are data, not theorems.</assumptions>
+    <dependency ref="c7" />
+    <evidence tool="pakcs" status="bounded" artifact_sha256="7edc12dae944a021f5fa2db58603f7785fe30c0a7a4d9fc96ca11c26b0ed62db">
+      <details>curry/resolution/outputs/resolve-output.txt with checker comparison in outputs/check-output.txt.</details>
+    </evidence>
+  </claim>
+  <claim id="c7" source="s1" line="1" domain="monster" status="bounded">
+    <expression>Contract families MON/MOON/LIE/GEO: 28 items checked — 14 VERIFIED (exact finite checks), 1 COUNTEREXAMPLE (deliberate non-homomorphism, detected), 5 BOUNDED (concrete GEO instances), 8 UNSUPPORTED (abstract-only, with reasons).</expression>
+    <assumptions>Finite checks concern named finite instances (S3, so(3), C4, concrete grids), never the Monster Group itself. Claim status here is bounded because the family as a whole mixes verified finite checks with unsupported items.</assumptions>
+    <evidence tool="python" status="bounded" artifact_sha256="6f9735e04915dbc9c01d4a032939a29c8c3e71f59f2eabcb31596b316890d33f">
+      <details>contracts/check-output.txt — one line per contract item with its status.</details>
+    </evidence>
+  </claim>
+  <claim id="c8" source="s1" line="1" domain="engine" status="bounded">
+    <expression>Optimization: HiGHS 1.15.1 verification model optimum 27 equals hand enumeration; coverage instance optimum 20 equals brute-force optimum over all 4,096 subsets.</expression>
+    <assumptions>Optimization prioritizes verification work; it certifies no mathematical claim. AMPL-format models exist as artifacts and were not executed by an AMPL runtime.</assumptions>
+    <evidence tool="highs" status="bounded" artifact_sha256="59eec4c75cf62e19d14d14da4ba3f23f9dd218aa931dd522e788b7f35d67859d">
+      <details>ampl/verification/highs-run.txt — full solver output, Status Optimal.</details>
+    </evidence>
+  </claim>
+  <claim id="c9" source="s1" line="1" domain="monster" status="bounded">
+    <expression>Alloy counterexample engine: 41 commands as expected — 16 valid-form checks UNSAT within recorded scopes, 7 deliberate negative checks SAT with archived counterexample instances, 15/15 runs SAT.</expression>
+    <assumptions>Bounded results within recorded scopes only. UNSAT means no counterexample exists within the scope; it is not an unrestricted proof. Models are finite abstractions and make no claim about the Monster Group.</assumptions>
+    <evidence tool="alloy" status="bounded" artifact_sha256="c5a8dc9667a607ae6528fe1da90b9ea7977976acd945c7e19c7f3a2de59428a1">
+      <details>alloy/results.txt; archive and instance summaries in counterexamples/INDEX.md.</details>
+    </evidence>
+  </claim>
+  <claim id="c10" source="s1" line="1" domain="lie" status="bounded">
+    <expression>Uiua array kernels: 17/17 independent cross-checks pass — so(3) Jacobi residual 0 (perturbed: 1), permutation round-trip residual 0 (non-invertible: 9), Klein-four composition residuals 0, J-coefficient arithmetic exact.</expression>
+    <assumptions>Numerical evidence over concrete arrays under Uiua 0.19.1; cross-checked by independent Python computation. Not formal proof.</assumptions>
+    <evidence tool="uiua" status="bounded" artifact_sha256="c9814c5f5fae8872256d69fd7f8ead2d150adb6525358daf9c0e0e031d64fbc5">
+      <details>benchmarks/uiua-benchmark.txt and uiua/outputs/ with uiua/check.py comparisons.</details>
+    </evidence>
+  </claim>
+  <claim id="c11" source="s1" line="1" domain="moonshine" status="bounded">
+    <expression>Mathics3 subsystem: Expand, Factor, Coefficient, Part, Simplify, Series evaluate; BitAnd, TestReport, VerificationTest reported as explicit CAPABILITY_FAILURE. McKay arithmetic 196884 - 196883 == 1 evaluates True; J-coefficient ratios computed as exact rationals.</expression>
+    <assumptions>Mathics3 10.0.1 is not Mathematica. Symbolic outputs are computer-algebra results, not proofs.</assumptions>
+    <evidence tool="mathics" status="bounded" artifact_sha256="d39846499b13f8fb536c798a4513ae9e6446f23c0d051e39029ecf330ac91e88">
+      <details>wolfram/outputs/capabilities.out — the capability map from the actual run.</details>
+    </evidence>
+  </claim>
+  <claim id="c12" source="s1" line="1" domain="engine" status="bounded">
+    <expression>Rust orchestration CLI: 10 commands; cargo tests 14/14; differential test vs the Python seed 8/8 PASS (scan byte-identical on seed samples); Phase 9 master pass 12/12 suites, 0 failed.</expression>
+    <assumptions>Integration and equivalence evidence against the seed reference implementation. The CLI executes no extracted source text.</assumptions>
+    <dependency ref="c1" />
+    <evidence tool="rust" status="bounded" artifact_sha256="d54f29d78274a7685953158acdd4ff479c9f19642880a8cc25c4bda496cd82ae">
+      <details>tests/master-test-run.txt — the Phase 9 master pass transcript.</details>
+    </evidence>
+  </claim>
+</research>

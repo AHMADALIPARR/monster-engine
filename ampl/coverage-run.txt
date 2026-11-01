@@ -54,15 +54,15 @@ Solving report
   Primal bound      20
   Dual bound        20
   Gap               0% (tolerance: 0.01%)
-  P-D integral      0.000345844380996
+  P-D integral      0.000407676135792
   Solution status   feasible
                     20 (objective)
                     0 (bound viol.)
                     0 (int. viol.)
                     0 (row viol.)
-  Timing            0.02
+  Timing            0.01
                     0.00 (Presolve)
-                    0.02 (Solve)
+                    0.01 (Solve)
                     0.00 (Postsolve)
   Max sub-MIP depth 0
   Nodes             1

@@ -1,0 +1,325 @@
+===== SUITE: seed-python-reference =====
+CMD: bash monster_bridge/scripts/test.sh
+scan: 4 records
+xml: 4 records
+validate: 4 records
+PASS: extraction, domains, XML, and contract validation
+----- seed-python-reference: exit=0 wall=1s -----
+===== SUITE: xml-v2-validator =====
+CMD: bash schemas/run_tests.sh
+PASS: contract-v2.xsd is well-formed XML (ElementTree; xmllint not installed)
+PASS: valid-moonshine.xml validates
+PASS: invalid-malformed.xml rejected with expected error class 'malformed XML'
+PASS: invalid-unsupported-operator.xml rejected with expected error class 'unsupported operator'
+PASS: invalid-unresolved-dependency.xml rejected with expected error class 'unresolved dependency'
+PASS: invalid-dependency-cycle.xml rejected with expected error class 'dependency cycle'
+PASS: invalid-unsubstantiated-verified.xml rejected with expected error class 'unsubstantiated verified'
+Tally: 7/7
+----- xml-v2-validator: exit=0 wall=0s -----
+===== SUITE: contracts-checkers =====
+CMD: bash contracts/run_checks.sh
+MON-identity: VERIFIED (S3 finite instance: |S3|=6, Cayley table built from generators (1,0,2) and (1,2,0); e*x=x*e=x for 6/6 elements)
+MON-closure: VERIFIED (S3 finite instance: 36/36 products lie in the set)
+MON-associativity: VERIFIED (S3 finite instance: 216/216 triples satisfy (a*b)*c = a*(b*c))
+MON-inverses: VERIFIED (S3 finite instance: 6/6 elements have a two-sided inverse)
+MON-homomorphism: VERIFIED (sign map S3 -> {+1,-1}: 36/36 pairs satisfy sign(a*b)=sign(a)*sign(b))
+MON-nonhomomorphism: COUNTEREXAMPLE (constant map to (1, 0, 2) detected as non-homomorphism: at a=(0, 1, 2), b=(0, 1, 2): f(a)*f(b)=(0, 1, 2) != f(a*b)=(1, 0, 2) (property fails, as expected))
+MON-character-compat: VERIFIED (S3 character table: chars constant on classes=yes, pairwise orthonormal=yes, 1^2+1^2+2^2=6=|S3|)
+MON-conjugacy: VERIFIED (S3 finite instance: 3 conjugacy classes, sizes [1, 2, 3], sum=6 = |S3|, partition=yes)
+MON-monster-abstract: UNSUPPORTED (abstract-only, not machine-checked: UNSUPPORTED for machine check here: no enumeration or direct check of the Monster is performed; its order makes exhaustive enumeration impossible and no validated Monster character table or generator set is an input to this package. The finite checks above concern S3 only and prove nothing about the Monster.)
+MOON-j-coeffs: VERIFIED (recorded coefficients [744, 196884, 21493760, 864299970] equal the established published values [744, 196884, 21493760, 864299970]: yes)
+MOON-mckay-identity: VERIFIED (exact integers: 196883 + 1 = 196884 = the recorded q^1 coefficient)
+MOON-character-decomposition: VERIFIED (exact integers: 1+196883+21296876=21493760 and 2*1+2*196883+21296876+842609326=864299970, matching the published coefficients)
+MOON-modular-transform: UNSUPPORTED (abstract-only, not machine-checked: UNSUPPORTED for machine check here: modular invariance is a statement about an analytic function on the upper half-plane; no modular-forms library is an input to this package and the identity is not machine-verified here.)
+MOON-mckay-thompson: UNSUPPORTED (abstract-only, not machine-checked: UNSUPPORTED for machine check here: this is the full moonshine correspondence, far beyond the concrete coefficient identities above; it is not machine-verified here and no part of it is checked by the finite or data checks in this package.)
+MOON-partition-constraints: UNSUPPORTED (abstract-only, not machine-checked: UNSUPPORTED for machine check here: the statement quantifies over infinitely many graded pieces and requires the vertex-operator-algebra machinery; no finite truncation checked here would establish it, so it is recorded as abstract-only.)
+LIE-structure-constants: VERIFIED (so(3) instance: 9/9 stored bracket entries match the Levi-Civita definition; eps_012=eps_120=eps_201=+1, eps_021=eps_102=eps_210=-1, eps_001=0)
+LIE-antisymmetry: VERIFIED (so(3) instance: [e_i,e_j]+[e_j,e_i]=0 on 9/9 basis pairs, max residual = 0 (exact rational))
+LIE-jacobi: VERIFIED (so(3) instance: Jacobi sum = 0 on 27/27 basis triples, max residual = 0 (exact rational))
+LIE-action-composition: VERIFIED (C4 action on square vertices {0,1,2,3}: 64/64 triples satisfy (g+h).v = g.(h.v); identity action holds: yes)
+LIE-tangent-space: UNSUPPORTED (abstract-only, not machine-checked: UNSUPPORTED for machine check here: tangent spaces and left translation are differential-geometric constructions requiring smooth-manifold machinery that is not an input to this package; the finite so(3) bracket checks above do not verify this item.)
+LIE-equivariance: UNSUPPORTED (abstract-only, not machine-checked: UNSUPPORTED for machine check here: equivariance for smooth actions needs differential geometry (smooth maps between manifolds); only the finite C4 action law above is machine-checked, and it does not establish this item.)
+LIE-coordinate-compat: UNSUPPORTED (abstract-only, not machine-checked: UNSUPPORTED for machine check here: chart compatibility is a statement about smooth atlases; no atlas or transition-function data is an input to this package.)
+GEO-subdivision: BOUNDED (concrete dyadic quadtree depth 2: parent = sum of 4 children at 5/5 internal nodes (exact Fractions); 16 leaves each 1/16, leaf sum = 1; bounded instance only)
+GEO-forward-inverse: BOUNDED (integer shear T(x,y)=(x+2y,y) on 5 test vectors: max forward/inverse residual = 0 (exact integers); bounded instance only)
+GEO-tensor-shape: BOUNDED (concrete shapes [(2, 3, 4), (4, 3, 2), (6, 4), (24,), (2, 12)]: element counts [24, 24, 24, 24, 24], all equal 24: yes; bounded instance only)
+GEO-reconstruction: BOUNDED (concrete signal f(x)=2x+1 on 9 dyadic samples: upsample/downsample max abs residual = 0.000e+00 (< 1e-9: yes); numerical evidence on this instance only, not a proof)
+GEO-rank-preservation: BOUNDED (concrete matrix rank = 2 (exact rational elimination); row-permuted rank = 2, column-permuted rank = 2; bounded instance only)
+GEO-holographic-scope: UNSUPPORTED (abstract-only, not machine-checked: UNSUPPORTED for machine check here: holographic duality is not established by any check in this package and no evidence for it is produced here; the bounded GEO checks above concern concrete grids, transforms, and shapes only.)
+----- contracts-checkers: exit=0 wall=0s -----
+===== SUITE: coverage-optimization =====
+CMD: bash ampl/run_coverage.sh
+coverage run: HiGHS binary: /home/hatch/workspace/.tools/highs/bin/highs (exit 0)
+
+--- brute force (ampl/coverage_brute.py) ---
+checkable contract items (universe size): 20
+depends_on edges among checkable items: 17 (all targets checkable, so full coverage is dependency-closed)
+verification tasks: 12
+covering constraints: 20 (one per checkable item)
+coverage.lp cross-check: objective costs and covering constraints match the task table above
+subsets enumerated: 4096
+brute-force optimum cost: 20
+optimal solutions found: 2
+optimal set: geo_full, lie_full, mon_full, moon_data (cost 20)
+optimal set: geo_full, lie_action, lie_bracket, mon_full, moon_data (cost 20)
+
+--- HiGHS output (ampl/coverage.lp) ---
+Running HiGHS 1.15.1 (git hash: 04024d7): Copyright (c) 2026 under MIT licence terms
+Includes third-party software components, see THIRD_PARTY_NOTICES.md for full details
+Command line parsed using CLI11 2.5.0: Copyright (c) 2017-2025 University of Cincinnati
+MIP coverage has 20 rows; 12 cols; 44 nonzeros; 12 integer variables (12 binary)
+Coefficient ranges:
+  Matrix  [1e+00, 1e+00]
+  Cost    [2e+00, 7e+00]
+  Bound   [1e+00, 1e+00]
+  RHS     [1e+00, 1e+00]
+Presolving model
+19 rows, 10 cols, 39 nonzeros 0s
+10 rows, 10 cols, 25 nonzeros 0s
+10 rows, 10 cols, 25 nonzeros 0s
+Presolve reductions: rows 10(-10); columns 10(-2); nonzeros 25(-19) 
+Objective function is integral with scale 1
+
+Solving MIP model with:
+   10 rows
+   10 cols (10 binary, 0 integer, 0 implied int., 0 continuous, 0 domain fixed)
+   25 nonzeros
+   Thread count 2 (of 4 threads). Using 1 max workers. Parallel search off
+
+Src: B => Branching; C => Central rounding; F => Feasibility pump; H => Heuristic;
+     I => Shifting; J => Feasibility jump; L => Sub-MIP; P => Empty MIP; R => Randomized rounding;
+     S => Solve LP; T => Evaluate node; U => Unbounded; X => User solution; Y => HiGHS solution;
+     Z => ZI Round; l => Trivial lower; p => Trivial point; u => Trivial upper; z => Trivial zero
+
+        Nodes      |    B&B Tree     |            Objective Bounds              |  Dynamic Constraints |       Work      
+Src  Proc. InQueue |  Leaves   Expl. | BestBound       BestSol              Gap |   Cuts   InLp Confl. | LpIters     Time
+
+ u       0       0         0   0.00%   -inf            41                 Large        0      0      0         0     0.0s
+ J       0       0         0   0.00%   -inf            34                 Large        0      0      0         0     0.0s
+ T       0       0         0   0.00%   12              20                40.00%        0      0      0         7     0.0s
+         1       0         1 100.00%   20              20                 0.00%        0      0      0         7     0.0s
+
+Solving report
+  Model             coverage
+  Status            Optimal
+  Primal bound      20
+  Dual bound        20
+  Gap               0% (tolerance: 0.01%)
+  P-D integral      0.000407676135792
+  Solution status   feasible
+                    20 (objective)
+                    0 (bound viol.)
+                    0 (int. viol.)
+                    0 (row viol.)
+  Timing            0.01
+                    0.00 (Presolve)
+                    0.01 (Solve)
+                    0.00 (Postsolve)
+  Max sub-MIP depth 0
+  Nodes             1
+  Repair LPs        0
+  LP iterations     7
+                    0 (strong br.)
+                    0 (separation)
+                    0 (heuristics)
+
+agreement: solver objective 20 equals brute-force optimum 20
+----- coverage-optimization: exit=0 wall=0s -----
+===== SUITE: highs-verification-model =====
+CMD: bash -c highs ampl/verification/workload.lp > /tmp/highs-master.txt 2>&1; grep -Eq "Status +Optimal" /tmp/highs-master.txt && grep -Eq "Primal bound +27" /tmp/highs-master.txt
+----- highs-verification-model: exit=0 wall=0s -----
+===== SUITE: curry-resolution =====
+CMD: bash curry/resolution/run.sh
+gen_facts: wrote /home/hatch/workspace/monster-engine/curry/resolution/Facts.curry (28 items, 22 edges)
+ALL: expected 28, curry 28, AGREE
+BLOCKED: expected 8, curry 8, AGREE
+RESOLVABLE: expected 20, curry 20, AGREE
+TRANS MON-homomorphism: expected 2, curry 2, AGREE
+TRANS MON-character-compat: expected 4, curry 4, AGREE
+DERIVATION-NODES MON-character-compat: expected 5, curry 5, AGREE
+DERIVATION-CLAUSES MON-character-compat: all nodes cite derivation-base/derivation-step, AGREE
+MOONCHAIN TRANS GradedDim: expected 3, curry 3, AGREE
+BOUNDED CYCLIC: line present in Curry output, AGREE
+check: ALL COMPARISONS AGREE
+run.sh: done; raw Curry session in outputs/resolve-output.txt, comparison in outputs/check-output.txt
+----- curry-resolution: exit=0 wall=13s -----
+===== SUITE: alloy-counterexamples =====
+CMD: bash alloy/run_all.sh
+Wrote results.txt
+----- alloy-counterexamples: exit=0 wall=26s -----
+===== SUITE: lean-build =====
+CMD: bash -c cd lean && lake build
+ℹ [4737/4742] Replayed MonsterBridge.GroupAction
+info: ././././MonsterBridge/GroupAction.lean:116:0: 'MonsterBridge.GroupAction.HomAction.act_inv_apply' depends on axioms: [propext]
+ℹ [4738/4742] Replayed MonsterBridge.Representation
+info: ././././MonsterBridge/Representation.lean:69:0: 'MonsterBridge.Representation.comp_id_repr' depends on axioms: [propext, Quot.sound]
+ℹ [4739/4742] Replayed MonsterBridge.LieBracket
+info: ././././MonsterBridge/LieBracket.lean:104:0: 'MonsterBridge.LieBracket.bracket_self_add_self_eq_zero' depends on axioms: [propext]
+ℹ [4740/4742] Replayed MonsterBridge.DependencyModel
+info: ././././MonsterBridge/DependencyModel.lean:138:0: 'MonsterBridge.DependencyModel.topoRank_no_cycle' does not depend on any axioms
+Build completed successfully.
+----- lean-build: exit=0 wall=9s -----
+===== SUITE: uiua-kernels =====
+CMD: bash uiua/run_all.sh
+jacobi.ua: exit 0
+jcoeff.ua: exit 0
+transforms.ua: exit 0
+equivariance.ua: exit 0
+PASS  jacobi bracket [e0,e1]
+      Uiua:        [0, 0, 1]
+      independent: [0, 0, 1]
+PASS  jacobi bracket [e1,e2]
+      Uiua:        [1, 0, 0]
+      independent: [1, 0, 0]
+PASS  jacobi max abs residual, unperturbed so(3)
+      Uiua:        [0]
+      independent: [0]
+PASS  jacobi max abs residual, perturbed C_012 = 2
+      Uiua:        [1]
+      independent: [1]
+PASS  j coefficients
+      Uiua:        [744, 196884, 21493760, 864299970]
+      independent: [744, 196884, 21493760, 864299970]
+PASS  j McKay 196884 - 1
+      Uiua:        [196883]
+      independent: [196883]
+PASS  j partial sums
+      Uiua:        [744, 197628, 21691388, 885991358]
+      independent: [744, 197628, 21691388, 885991358]
+PASS  j consecutive differences
+      Uiua:        [196140, 21296876, 842806210]
+      independent: [196140, 21296876, 842806210]
+PASS  transforms forward (z, x, y)
+      Uiua:        [3, 1, 2, 6, 4, 5, 9, 7, 8, 2, 0, -1]
+      independent: [3, 1, 2, 6, 4, 5, 9, 7, 8, 2, 0, -1]
+PASS  transforms permutation roundtrip residual
+      Uiua:        [0]
+      independent: [0]
+PASS  transforms projection roundtrip residual
+      Uiua:        [9]
+      independent: [9]
+PASS  equivariance flip-both array
+      Uiua:        [4, 3, 2, 1]
+      independent: [4, 3, 2, 1]
+PASS  equivariance residual rows vs cols order
+      Uiua:        [0]
+      independent: [0]
+PASS  equivariance residual rows vs both order
+      Uiua:        [0]
+      independent: [0]
+PASS  equivariance residual cols vs both order
+      Uiua:        [0]
+      independent: [0]
+PASS  equivariance residual rows twice vs original
+      Uiua:        [0]
+      independent: [0]
+PASS  equivariance contrast residual transpose vs rows
+      Uiua:        [3]
+      independent: [3]
+
+All checks passed.
+----- uiua-kernels: exit=0 wall=0s -----
+===== SUITE: wolfram-mathics =====
+CMD: bash wolfram/run.sh
+Mathics3 10.0.1
+Running on linux CPython 3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]
+using SymPy 1.14.0, mpmath 1.3.0, numpy 2.5.4, cython Not installed, scipy 1.18.1, skimage Not installed
+run.sh: running normalize.wl ...
+=== normalize.wl (Mathics3) ===
+J coefficients (published data): jCoeffs = {744, 196884, 21493760, 864299970}
+J c0 (constant term, coefficient of q^0): 744
+J c1 (coefficient of q^1): 196884
+J c2 (coefficient of q^2): 21493760
+J c3 (coefficient of q^3): 864299970
+J polynomial (truncated, without q^-1 term): jPoly = 744 + 196884 q + 21493760 q^2 + 864299970 q^3
+J polynomial evaluated: 744 + 196884 q + 21493760 q ^ 2 + 864299970 q ^ 3
+--- Identity 1: (x + y)^2 expansion ---
+Original 1: (x + y) ^ 2
+Normalized 1 (Expand[(x + y)^2]): x ^ 2 + 2 x y + y ^ 2
+Identity check 1: Expand[(x + y)^2] == x^2 + 2 x y + y^2 : True
+--- Identity 2: x^2 - 1 factorization ---
+Original 2: -1 + x ^ 2
+Normalized 2 (Factor[x^2 - 1]): (-1 + x) (1 + x)
+Identity check 2: Factor[x^2 - 1] == (x - 1) (x + 1) : True
+--- Identity 2b: (x - 1) (x + 1) expansion (cross-check) ---
+Original 2b: (-1 + x) (1 + x)
+Normalized 2b (Expand[(x - 1) (x + 1)]): -1 + x ^ 2
+Identity check 2b: Expand[(x - 1) (x + 1)] == x^2 - 1 : True
+--- Coefficient extraction cross-check ---
+Coefficient[jPoly, q, 1] = 196884
+Coefficient check: Coefficient[jPoly, q, 1] == 196884 : True
+Coefficient[jPoly, q, 0] = 744
+Coefficient[jPoly, q, 2] = 21493760
+Coefficient[jPoly, q, 3] = 864299970
+--- McKay arithmetic ---
+McKay difference: 196884 - 196883 = 1
+McKay verification: 196884 - 196883 == 1 : True
+McKay form: 196884 = 196883 + 1 : True
+--- Coefficient ratios (exact rationals) ---
+Ratio c1/c0: 196884/744 = 16407 / 62
+Ratio c2/c1: 21493760/196884 = 5373440 / 49221
+Ratio c3/c2: 864299970/21493760 = 86429997 / 2149376
+Ratio c1/196883: 196884/196883 = 196884 / 196883
+--- Coefficient differences (exact integers) ---
+Difference c1 - c0: 196884 - 744 = 196140
+Difference c2 - c1: 21493760 - 196884 = 21296876
+Difference c3 - c2: 864299970 - 21493760 = 842806210
+=== normalize.wl done ===
+run.sh: normalize.wl exit status: 0
+run.sh: running capabilities.wl ...
+=== capabilities.wl (Mathics3) ===
+SUPPORTED: Expand result = x ^ 2 + 2 x y + y ^ 2
+SUPPORTED: Factor result = (-1 + x) (1 + x)
+SUPPORTED: Coefficient result = 196884
+SUPPORTED: Part result = 196884
+SUPPORTED: Simplify result = 1 + x
+SUPPORTED: Series result = 1 + x + x ^ 2 / 2 + x ^ 3 / 6 + O[x] ^ 4
+CAPABILITY_FAILURE: BitAnd unevaluated on BitAnd[5, 3], expected 1 - Bit* builtins are not evaluated by Mathics3
+CAPABILITY_FAILURE: TestReport unevaluated - TestReport is not implemented in Mathics3
+CAPABILITY_FAILURE: VerificationTest unevaluated - VerificationTest is not implemented in Mathics3
+Required failures: 0
+capabilities.wl: PASS - all REQUIRED operations SUPPORTED (optional failures above, if any, are explicit)
+run.sh: capabilities.wl exit status: 0
+run.sh: PASS - both scripts ran and all expected True lines are present.
+----- wolfram-mathics: exit=0 wall=16s -----
+===== SUITE: rust-cargo-test =====
+CMD: bash -c cd rust && cargo test
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.02s
+     Running unittests src/main.rs (target/debug/deps/monster-2788c11cf7345528)
+
+running 14 tests
+test tests::cycle_detected_three_cycle ... ok
+test tests::json_escaping ... ok
+test tests::dag_toposorts ... ok
+test tests::contract_fixture_counts ... ok
+test tests::json_roundtrip ... ok
+test tests::matcher_dot_is_any_char_not_optional ... ok
+test tests::sha256_abc ... ok
+test tests::sha256_empty ... ok
+test tests::sha256_long ... ok
+test tests::matcher_wildcard_cases ... ok
+test tests::validate_accepts_candidate ... ok
+test tests::validate_rejects_unsubstantiated_verified ... ok
+test tests::xml_escape_checks ... ok
+test tests::matcher_substring_and_miss ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+----- rust-cargo-test: exit=0 wall=0s -----
+===== SUITE: rust-difftest =====
+CMD: bash scripts/difftest.sh
+ok: cargo build
+ok: samples scan record-for-record: MATCH 4 records
+ok: samples scan reproduces shipped hits.jsonl exactly (all fields, path included): MATCH 4 records
+ok: tricky-tree scan record-for-record (wildcards, case, extensions, path ordering): MATCH 17 records
+ok: XML claim counts match (17 claims)
+ok: python validate accepts rust-produced XML
+ok: rust verify accepts python-produced XML
+ok: both validators accept their own XML
+DIFFTEST PASS
+----- rust-difftest: exit=0 wall=0s -----
+===== NOT RE-RUN IN THIS PASS (recorded evidence stands) =====
+corpus-1M-benchmark: benchmarks/corpus-benchmark.txt (38.97s, recall exact); corpus regenerates byte-identically from corpus/gen_synthetic.py seed 20261031, so the recorded benchmark remains the measurement of record.
+curry-battery: curry/battery/outputs/ + reports/toolchain-curry.md (Phase 1 battery, 7/7); Curry is exercised end-to-end in this pass by the curry-resolution suite.
+===== SUMMARY =====
+suites run: 12, failed: 0
