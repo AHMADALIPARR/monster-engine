@@ -1,0 +1,21 @@
+Model status
+Optimal
+
+# Primal solution values
+Feasible
+Objective 27
+# Columns 4
+t1 1
+t2 1
+t3 0
+t4 1
+# Rows 2
+budget 8
+link 0
+
+# Dual solution values
+None
+
+# Basis
+HiGHS_basis_file v2
+None

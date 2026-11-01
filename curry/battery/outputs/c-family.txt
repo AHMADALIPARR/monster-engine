@@ -1,0 +1,31 @@
+$ printf ":load Family\nmain\n:quit\n" | pakcs   (cwd: curry/battery)
+ __    _
+|_ \  | |            PAKCS - the Portland Aachen Kiel Curry System
+  \ \ | |____
+  /  \|  ____|       Version 3.9.0 of 2025-10-29 (swi 9.0)
+ / /\ \ |
+/_/  \_\|            
+
+Type ":h" for help (contact: pakcs@curry-lang.org)
+Compiling Curry program "Family"...
+
+Family.curry:12:1-16:25 Warning:
+    Pattern matches are non-exhaustive
+    In an equation for `parent':
+      Patterns not matched:
+        [] _
+        (x : _) _ with x `notElem` ['a', 'b', 'c']
+        ['a'] _
+        ('a' : x : _) _ with x `notElem` ['b', 'd']
+        ...
+    | 
+ 12 | parent "abe" "bob" = True
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^...
+
+Family.curry:19:1-21:14 Warning:
+    Function `ancestor' is potentially non-deterministic due to overlapping rules
+    | 
+ 19 | ancestor x y | parent x y = True
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^...
+["bob","ada","cy","dee","eli"]
+[exit 0]

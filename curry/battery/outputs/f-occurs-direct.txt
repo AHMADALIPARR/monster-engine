@@ -1,0 +1,12 @@
+$ printf ":load Occurs\ncycProbe\n:quit\n" | timeout 60 pakcs   (cwd: curry/battery; direct unencapsulated REPL evaluation)
+ __    _
+|_ \  | |            PAKCS - the Portland Aachen Kiel Curry System
+  \ \ | |____
+  /  \|  ____|       Version 3.9.0 of 2025-10-29 (swi 9.0)
+ / /\ \ |
+/_/  \_\|            
+
+Type ":h" for help (contact: pakcs@curry-lang.org)
+Compiling Curry program "Occurs"...
+*** No value found!
+[exit 2]

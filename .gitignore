@@ -1,0 +1,9 @@
+# Build products (regenerable; sources and logs are committed instead)
+lean/.lake/
+rust/target/
+# Regenerable benchmark data (generator + seed + expected counts are committed)
+corpus/synthetic/
+benchmarks/corpus-synthetic-hits.jsonl
+# Python bytecode outside the preserved seed
+__pycache__/
+*.log

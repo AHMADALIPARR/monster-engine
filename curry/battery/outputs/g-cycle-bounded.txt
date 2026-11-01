@@ -1,0 +1,38 @@
+$ printf ":load Cycle\nmain\n:quit\n" | pakcs   (cwd: curry/battery)
+ __    _
+|_ \  | |            PAKCS - the Portland Aachen Kiel Curry System
+  \ \ | |____
+  /  \|  ____|       Version 3.9.0 of 2025-10-29 (swi 9.0)
+ / /\ \ |
+/_/  \_\|            
+
+Type ":h" for help (contact: pakcs@curry-lang.org)
+Compiling Curry program "Cycle"...
+
+Cycle.curry:18:1-20:19 Warning:
+    Pattern matches are non-exhaustive
+    In an equation for `edge':
+      Patterns not matched:
+        [] _
+        (x : _) _ with x `notElem` ['a', 'b']
+        ('a' : _ : _) _
+        ['a'] []
+        ...
+    | 
+ 18 | edge "a" "b" = True
+    | ^^^^^^^^^^^^^^^^^^^...
+
+Cycle.curry:23:1-25:14 Warning:
+    Function `reach' is potentially non-deterministic due to overlapping rules
+    | 
+ 23 | reach x y | edge x y = True
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^...
+
+Cycle.curry:28:1-30:14 Warning:
+    Function `reachN' is potentially non-deterministic due to overlapping rules
+    | 
+ 28 | reachN _ x y | edge x y = True
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^...
+[]
+["b","a","c","b","a","c","b","a","c"]
+[exit 0]

@@ -1,0 +1,11 @@
+$ printf "1+2\n:quit\n" | pakcs
+ __    _
+|_ \  | |            PAKCS - the Portland Aachen Kiel Curry System
+  \ \ | |____
+  /  \|  ____|       Version 3.9.0 of 2025-10-29 (swi 9.0)
+ / /\ \ |
+/_/  \_\|            
+
+Type ":h" for help (contact: pakcs@curry-lang.org)
+3
+[exit 0]

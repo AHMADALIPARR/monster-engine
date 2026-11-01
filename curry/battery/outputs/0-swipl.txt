@@ -1,0 +1,5 @@
+$ swipl --version
+SWI-Prolog version 9.0.4 for x86_64-linux
+$ swipl -g "append([1,2],[3],X), write(X), nl, halt" -t halt
+[1,2,3]
+[exit 0]

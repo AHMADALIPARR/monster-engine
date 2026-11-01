@@ -1,0 +1,19 @@
+$ printf ":load Occurs\nmain\n:quit\n" | timeout 180 pakcs   (cwd: curry/battery)
+ __    _
+|_ \  | |            PAKCS - the Portland Aachen Kiel Curry System
+  \ \ | |____
+  /  \|  ____|       Version 3.9.0 of 2025-10-29 (swi 9.0)
+ / /\ \ |
+/_/  \_\|            
+
+Type ":h" for help (contact: pakcs@curry-lang.org)
+Compiling Curry program "Occurs"...
+
+Occurs.curry:23:1-25:33 Warning:
+    Function `probe' is potentially non-deterministic due to overlapping rules
+    | 
+ 23 | probe 0 _       = 99
+    | ^^^^^^^^^^^^^^^^^^^^...
+7
+[]
+[exit 0]

@@ -1,0 +1,19 @@
+$ printf ":load Coin\nmain\n:quit\n" | pakcs   (cwd: curry/battery)
+ __    _
+|_ \  | |            PAKCS - the Portland Aachen Kiel Curry System
+  \ \ | |____
+  /  \|  ____|       Version 3.9.0 of 2025-10-29 (swi 9.0)
+ / /\ \ |
+/_/  \_\|            
+
+Type ":h" for help (contact: pakcs@curry-lang.org)
+Compiling Curry program "Coin"...
+
+Coin.curry:16:1-17:12 Warning:
+    Function `coin' is potentially non-deterministic due to overlapping rules
+    | 
+ 16 | coin = Heads
+    | ^^^^^^^^^^^^...
+[Heads,Tails]
+[(Heads,Heads),(Heads,Tails),(Tails,Heads),(Tails,Tails)]
+[exit 0]

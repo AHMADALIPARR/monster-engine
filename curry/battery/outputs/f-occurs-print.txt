@@ -1,0 +1,12 @@
+$ printf ":load OccursPrint\nmain\n:quit\n" | timeout 60 pakcs   (cwd: curry/battery)
+ __    _
+|_ \  | |            PAKCS - the Portland Aachen Kiel Curry System
+  \ \ | |____
+  /  \|  ____|       Version 3.9.0 of 2025-10-29 (swi 9.0)
+ / /\ \ |
+/_/  \_\|            
+
+Type ":h" for help (contact: pakcs@curry-lang.org)
+Compiling Curry program "OccursPrint"...
+[]
+[exit 0]

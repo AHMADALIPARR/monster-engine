@@ -1,0 +1,19 @@
+$ printf ":load PermSort\nmain\n:quit\n" | pakcs   (cwd: curry/battery)
+ __    _
+|_ \  | |            PAKCS - the Portland Aachen Kiel Curry System
+  \ \ | |____
+  /  \|  ____|       Version 3.9.0 of 2025-10-29 (swi 9.0)
+ / /\ \ |
+/_/  \_\|            
+
+Type ":h" for help (contact: pakcs@curry-lang.org)
+Compiling Curry program "PermSort"...
+
+PermSort.curry:15:1-16:33 Warning:
+    Function `insert' is potentially non-deterministic due to overlapping rules
+    | 
+ 15 | insert x ys     = x : ys
+    | ^^^^^^^^^^^^^^^^^^^^^^^^...
+[[2,1,3],[2,3,1],[1,2,3],[1,3,2],[3,2,1],[3,1,2]]
+[[1,2,3]]
+[exit 0]
