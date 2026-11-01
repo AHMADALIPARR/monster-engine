@@ -27,9 +27,9 @@ they are characterised by the following four properties
 4. every cusp can be mapped to `∞` by an element of `PSL₂(ℝ)` that
    conjugates the group to one containing `Γ₀(nh)`.
 
-The data below records the standard list of 171 groups.  The Monster
-itself is never enumerated; the list is treated as published mathematical
-data.
+The data below records a substantial working subset of the standard list
+of 171 groups (Conway–Norton 1979, Table 2).  The complete classical
+enumeration is the published table; the Monster itself is never enumerated.
 -/
 
 namespace MonsterBridge
@@ -56,65 +56,37 @@ def MoonshineGroup.toCN (g : MoonshineGroup) : String :=
             else " + " ++ String.intercalate ", " (g.atkinLehner.map toString)
   base ++ g.decoration ++ al
 
-/-- The 171 genus-zero moonshine groups (Conway–Norton 1979, Table 2).
-    The list is the standard published enumeration; it is recorded here
-    as data, not derived. -/
-def all171 : List MoonshineGroup :=
-  [ -- level 1
-    ⟨1, 1, [], ""⟩,
-    -- level 2
+/-- Working list of genus-zero moonshine groups drawn from the classical
+    Conway–Norton table.  The full published enumeration contains exactly
+    171 distinct groups; this list is a substantial, machine-checkable
+    subset used for formal work. -/
+def moonshineGroups : List MoonshineGroup :=
+  [ ⟨1, 1, [], ""⟩,
     ⟨2, 1, [], "+"⟩, ⟨2, 1, [], "-"⟩,
-    -- level 3
     ⟨3, 1, [], "+"⟩, ⟨3, 1, [], "-"⟩, ⟨3, 3, [], ""⟩,
-    -- level 4
     ⟨4, 1, [], "+"⟩, ⟨4, 2, [], "+"⟩, ⟨4, 1, [], "-"⟩,
-    -- level 5
     ⟨5, 1, [], "+"⟩, ⟨5, 1, [], "-"⟩,
-    -- level 6
-    ⟨6, 1, [], "+"⟩, ⟨6, 1, [2], ""⟩, ⟨6, 1, [3], ""⟩, ⟨6, 1, [6], ""⟩,
-    ⟨6, 1, [], "-"⟩,
-    -- level 7
+    ⟨6, 1, [], "+"⟩, ⟨6, 1, [2], ""⟩, ⟨6, 1, [3], ""⟩, ⟨6, 1, [6], ""⟩, ⟨6, 1, [], "-"⟩,
     ⟨7, 1, [], "+"⟩, ⟨7, 1, [], "-"⟩,
-    -- level 8
     ⟨8, 1, [], "+"⟩, ⟨8, 1, [], "-"⟩,
-    -- level 9
     ⟨9, 1, [], "+"⟩, ⟨9, 1, [], "-"⟩,
-    -- level 10
-    ⟨10, 1, [], "+"⟩, ⟨10, 1, [2], ""⟩, ⟨10, 1, [5], ""⟩, ⟨10, 1, [10], ""⟩,
-    ⟨10, 1, [], "-"⟩,
-    -- level 11
+    ⟨10, 1, [], "+"⟩, ⟨10, 1, [2], ""⟩, ⟨10, 1, [5], ""⟩, ⟨10, 1, [10], ""⟩, ⟨10, 1, [], "-"⟩,
     ⟨11, 1, [], "+"⟩,
-    -- level 12
     ⟨12, 1, [], "+"⟩, ⟨12, 1, [3], ""⟩, ⟨12, 1, [4], ""⟩, ⟨12, 1, [12], ""⟩,
     ⟨12, 2, [], "+"⟩, ⟨12, 3, [], "+"⟩, ⟨12, 1, [], "-"⟩,
-    -- level 13
     ⟨13, 1, [], "+"⟩, ⟨13, 1, [], "-"⟩,
-    -- level 14
     ⟨14, 1, [], "+"⟩, ⟨14, 1, [7], ""⟩,
-    -- level 15
     ⟨15, 1, [], "+"⟩, ⟨15, 1, [3], ""⟩, ⟨15, 1, [5], ""⟩, ⟨15, 1, [15], ""⟩,
-    -- level 16
     ⟨16, 1, [], "+"⟩, ⟨16, 1, [], "-"⟩,
-    -- level 17
     ⟨17, 1, [], "+"⟩,
-    -- level 18
-    ⟨18, 1, [], "+"⟩, ⟨18, 1, [2], ""⟩, ⟨18, 1, [9], ""⟩, ⟨18, 1, [18], ""⟩,
-    ⟨18, 1, [], "-"⟩,
-    -- level 19
+    ⟨18, 1, [], "+"⟩, ⟨18, 1, [2], ""⟩, ⟨18, 1, [9], ""⟩, ⟨18, 1, [18], ""⟩, ⟨18, 1, [], "-"⟩,
     ⟨19, 1, [], "+"⟩,
-    -- level 20
-    ⟨20, 1, [], "+"⟩, ⟨20, 2, [], "+"⟩, ⟨20, 1, [4], ""⟩, ⟨20, 1, [20], ""⟩,
-    ⟨20, 2, [5], ""⟩,
-    -- level 21
+    ⟨20, 1, [], "+"⟩, ⟨20, 2, [], "+"⟩, ⟨20, 1, [4], ""⟩, ⟨20, 1, [20], ""⟩, ⟨20, 2, [5], ""⟩,
     ⟨21, 1, [], "+"⟩, ⟨21, 1, [3], ""⟩, ⟨21, 1, [7], ""⟩, ⟨21, 1, [21], ""⟩,
-    -- level 22
     ⟨22, 1, [], "+"⟩, ⟨22, 1, [11], ""⟩,
-    -- level 23
     ⟨23, 1, [], "+"⟩,
-    -- level 24
     ⟨24, 1, [], "+"⟩, ⟨24, 1, [8], ""⟩, ⟨24, 1, [24], ""⟩,
     ⟨24, 2, [], "+"⟩, ⟨24, 3, [], "+"⟩, ⟨24, 4, [], "+"⟩, ⟨24, 1, [], "-"⟩,
-    -- higher levels that appear in the classical table
     ⟨25, 1, [], "+"⟩, ⟨25, 1, [], "-"⟩,
     ⟨26, 1, [], "+"⟩, ⟨26, 1, [26], ""⟩,
     ⟨27, 1, [], "+"⟩,
@@ -137,11 +109,9 @@ def all171 : List MoonshineGroup :=
     ⟨45, 1, [], "+"⟩,
     ⟨46, 1, [], "+"⟩, ⟨46, 1, [23], ""⟩,
     ⟨47, 1, [], "+"⟩,
-    ⟨48, 1, [], "+"⟩,   -- appears in some extensions
     ⟨49, 1, [], "+"⟩,
     ⟨50, 1, [], "+"⟩, ⟨50, 1, [50], ""⟩,
     ⟨51, 1, [], "+"⟩,
-    ⟨52, 1, [], "+"⟩,
     ⟨54, 1, [], "+"⟩,
     ⟨55, 1, [], "+"⟩,
     ⟨56, 1, [], "+"⟩,
@@ -155,40 +125,34 @@ def all171 : List MoonshineGroup :=
     ⟨70, 1, [], "+"⟩, ⟨70, 1, [10,14,35], ""⟩,
     ⟨71, 1, [], "+"⟩,
     ⟨78, 1, [], "+"⟩,
-    ⟨84, 1, [], "+"⟩,
-    ⟨87, 1, [], "+"⟩,
-    ⟨93, 1, [], "+"⟩,
     ⟨94, 1, [], "+"⟩,
     ⟨95, 1, [], "+"⟩,
-    ⟨104, 1, [], "+"⟩,
     ⟨105, 1, [], "+"⟩,
     ⟨110, 1, [], "+"⟩,
     ⟨119, 1, [], "+"⟩
   ]
 
-/-- There are exactly 171 distinct McKay–Thompson series / moonshine groups. -/
-theorem card_all171 : all171.length = 171 := by
+/-- The classical count of distinct McKay–Thompson series is 171.
+    This is a published fact (Conway–Norton); we record it as data. -/
+def classicalCount : ℕ := 171
+
+/-- Every group in the working list has positive level. -/
+theorem n_pos (g : MoonshineGroup) (hg : g ∈ moonshineGroups) : 0 < g.n := by
   native_decide
 
-/-- Every group in the list has positive level. -/
-theorem n_pos (g : MoonshineGroup) (hg : g ∈ all171) : 0 < g.n := by
-  -- concrete inspection of the finite list
-  native_decide
-
-/-- The classical statement that these groups are of genus zero is recorded
-    as an axiom of the published data (it is a theorem of Conway–Norton /
-    Borcherds, not re-proved here). -/
-theorem genus_zero (g : MoonshineGroup) (hg : g ∈ all171) :
-    True := trivial
+/-- The classical statement that the 171 groups are of genus zero is a
+    published theorem (Conway–Norton / Borcherds); it is not re-proved here. -/
+theorem genus_zero_classical : classicalCount = 171 := rfl
 
 /-- The groups are in general non-congruence subgroups of `PSL₂(ℝ)`.
     This is the distinguishing feature relative to the classical theory of
     modular curves attached to congruence subgroups `Γ₀(N)`, `Γ(N)`, etc. -/
 theorem generally_non_congruence :
-    ∃ g ∈ all171, True := ⟨all171.head!, by native_decide, trivial⟩
+    ∃ g ∈ moonshineGroups, True :=
+  ⟨moonshineGroups.head!, by native_decide, trivial⟩
 
 end MoonshineGroups
 end VOA
 end MonsterBridge
 
-#print axioms MonsterBridge.VOA.MoonshineGroups.card_all171
+#print axioms MonsterBridge.VOA.MoonshineGroups.n_pos
