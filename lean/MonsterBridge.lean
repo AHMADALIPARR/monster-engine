@@ -5,3 +5,4 @@ import MonsterBridge.DependencyModel
 import MonsterBridge.VOA.Basic
 import MonsterBridge.VOA.Conformal
 import MonsterBridge.VOA.Modules
+import MonsterBridge.VOA.MoonshineGroups
