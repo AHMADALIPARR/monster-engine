@@ -34,10 +34,6 @@ graded verification status through every stage of the pipeline.
 
 <!-- Image will appear here once assets/monster-moonshine-centerfold.jpg is uploaded via GitHub UI -->
 <p align="center">
-  <strong>🖼 Centerfold image ready for upload</strong><br/>
-  <sub>Add <code>assets/monster-moonshine-centerfold.jpg</code> (the vintage Monster + Moon poster)<br/>
-  via <em>Add file → Upload files</em> in the assets/ folder, then the image renders automatically.</sub>
-</p>
 
 ```
         196884 = 196883 + 1
