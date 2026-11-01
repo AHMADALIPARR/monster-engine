@@ -15,9 +15,20 @@ Last updated: build start (Phase 0 complete, Phase 1 in progress).
 ## Phase states
 
 - Phase 0 (audit): done. No pre-existing monster-engine repository existed;
-  the seed above is the preserved starting code.
-- Phase 1 (toolchain recovery): in progress. See `reports/toolchain-manifest.md`.
-- Phases 2–9: pending, in directive §15 order.
+  the seed above is the preserved starting code. Scaffold committed locally
+  (30fe7ba); no remote.
+- Phase 1 (toolchain recovery): in progress — SWI-Prolog/PAKCS and HiGHS
+  workstreams running. See `reports/toolchain-*.md` as they land.
+- Phase 2 (XML v2): in progress.
+- Phase 3 (corpus + synthetic benchmark): in progress.
+- Phase 4 (logic): Curry programs wait on the Phase 1 PAKCS outcome; the
+  native Rust resolver is part of Phase 8.
+- Phase 5 (contracts + Alloy): both halves in progress.
+- Phase 6 (Lean): in progress.
+- Phase 7 (Uiua): in progress.
+- Phase 8 (Rust CLI): in progress.
+- Phase 9 (benchmarks + final report): pending all subsystem results.
+- Wolfram/Mathics3 subsystem: in progress.
 
 ## Standing limits
 
