@@ -1,0 +1,38 @@
+{
+  "module": "lie_algebra_abstraction_bad.als",
+  "source": "alloy/lie_algebra_abstraction_bad.als",
+  "tool": "Alloy 6 (alloy.jar build dated 2025-01-09), headless driver alloy/driver/RunAlloy.java, solver SATFactory.DEFAULT",
+  "result_semantics": "check+SAT = counterexample found within scope; check+UNSAT = no counterexample within scope (bounded result, not an unrestricted proof); run+SAT = instance found; run+UNSAT = no instance within scope",
+  "commands": [
+    {
+      "label": "BracketAntisymmetric",
+      "kind": "check",
+      "scope": "overall<=4, Int=6bits",
+      "result": "UNSAT",
+      "elapsed_ms": 4225,
+      "instance_summary": null,
+      "expected": "UNSAT",
+      "matches_expectation": true
+    },
+    {
+      "label": "JacobiIdentity",
+      "kind": "check",
+      "scope": "overall<=4, Int=6bits",
+      "result": "SAT",
+      "elapsed_ms": 2197,
+      "instance_summary": "Basis=4, H=1, E=1, F=1, Z=1, Alg=1, Alg.brT=16, Alg.brK=16",
+      "expected": "SAT",
+      "matches_expectation": true
+    },
+    {
+      "label": "ShowPerturbedEntry",
+      "kind": "run",
+      "scope": "overall<=4, Int=6bits",
+      "result": "SAT",
+      "elapsed_ms": 1812,
+      "instance_summary": "Basis=4, H=1, E=1, F=1, Z=1, Alg=1, Alg.brT=16, Alg.brK=16",
+      "expected": "SAT",
+      "matches_expectation": true
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "module": "moonshine_dependencies.als",
+  "source": "alloy/moonshine_dependencies.als",
+  "tool": "Alloy 6 (alloy.jar build dated 2025-01-09), headless driver alloy/driver/RunAlloy.java, solver SATFactory.DEFAULT",
+  "result_semantics": "check+SAT = counterexample found within scope; check+UNSAT = no counterexample within scope (bounded result, not an unrestricted proof); run+SAT = instance found; run+UNSAT = no instance within scope",
+  "commands": [
+    {
+      "label": "TransitiveConsistency",
+      "kind": "check",
+      "scope": "overall<=4, Int=4(default)bits",
+      "result": "UNSAT",
+      "elapsed_ms": 1004,
+      "instance_summary": null,
+      "expected": "UNSAT",
+      "matches_expectation": true
+    },
+    {
+      "label": "ConjectureNeverSupportsEstablished",
+      "kind": "check",
+      "scope": "overall<=4, Int=4(default)bits",
+      "result": "UNSAT",
+      "elapsed_ms": 126,
+      "instance_summary": null,
+      "expected": "UNSAT",
+      "matches_expectation": true
+    },
+    {
+      "label": "ShowAllEstablished",
+      "kind": "run",
+      "scope": "overall<=4, Int=4(default)bits",
+      "result": "SAT",
+      "elapsed_ms": 190,
+      "instance_summary": "Claim=4, JCoeff1=1, JCoeff2=1, McKayDecomp=1, GradedDim=1, Status=2, Established=1, Conjecture=1, Labeling=1, Claim.dependsOn=3, Labeling.status=4",
+      "expected": "SAT",
+      "matches_expectation": true
+    },
+    {
+      "label": "ShowMixedConsistent",
+      "kind": "run",
+      "scope": "overall<=4, Int=4(default)bits",
+      "result": "SAT",
+      "elapsed_ms": 180,
+      "instance_summary": "Claim=4, JCoeff1=1, JCoeff2=1, McKayDecomp=1, GradedDim=1, Status=2, Established=1, Conjecture=1, Labeling=1, Claim.dependsOn=3, Labeling.status=4",
+      "expected": "SAT",
+      "matches_expectation": true
+    }
+  ]
+}
