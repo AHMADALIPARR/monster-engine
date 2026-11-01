@@ -7,11 +7,10 @@ import Mathlib
 
 A module for a vertex algebra is a vector space `M` together with a
 state-field map `Y^M : V → EndSeries R M` satisfying the vacuum axiom,
-the creation property, and the Jacobi / associativity identity in the
-weak form given by locality between the algebra and the module.
+the creation property, and weak locality between module modes.
 
 For a VOA one additionally requires that the Virasoro generators act
-on the module compatibly with the grading.
+on the module via the modes of the conformal vector.
 
 All definitions and theorems in this file are complete; there is no
 `sorry`.
@@ -23,8 +22,7 @@ namespace VOA
 /-- A **module** over a vertex algebra `VA`.
 
     The action is given by mode operators `Y_M a n : M →ₗ[R] M`.
-    The axioms mirror those of the algebra itself, with the locality
-    condition relating algebra modes to module modes.
+    The axioms mirror those of the algebra itself.
 -/
 structure VertexAlgebraModule (R : Type*) (V : Type*) (M : Type*)
     [CommRing R] [AddCommGroup V] [Module R V]
@@ -40,13 +38,7 @@ structure VertexAlgebraModule (R : Type*) (V : Type*) (M : Type*)
   vac_mode_nonneg_M : ∀ n : ℤ, 0 ≤ n → Y_M VA.vac n = 0
   /-- Creation property on the module. -/
   creation_M : ∀ (a : V) (m : M), ∃ N : ℤ, ∀ n : ℤ, N ≤ n → Y_M a n m = 0
-  /-- Locality between algebra modes and module modes:
-      for every algebra state `a` and every module vector the modes
-      of sufficiently high total index commute in the appropriate sense.
-      Concretely: the operators `Y a k` (acting on `V`) and `Y_M a n`
-      (acting on `M`) satisfy the weak commutativity needed for the
-      Jacobi identity to hold on a dense set of modes.  We record the
-      concrete commutation of high modes that is used in calculations. -/
+  /-- Locality of module modes among themselves. -/
   locality_M : ∀ (a b : V), ∃ N : ℕ, ∀ (k n : ℤ),
       (N : ℤ) ≤ k + n →
       Y_M a k ∘ₗ Y_M b n = Y_M b n ∘ₗ Y_M a k
@@ -76,12 +68,18 @@ theorem high_mode_vanish_M (a : V) (m : M) :
     ∃ N : ℤ, ∀ n : ℤ, N ≤ n → Mod.Y_M a n m = 0 :=
   Mod.creation_M a m
 
+/-- Module modes of sufficiently high total index commute. -/
+theorem modes_commute_M (a b : V) :
+    ∃ N : ℕ, ∀ (k n : ℤ), (N : ℤ) ≤ k + n →
+      Mod.Y_M a k ∘ₗ Mod.Y_M b n = Mod.Y_M b n ∘ₗ Mod.Y_M a k :=
+  Mod.locality_M a b
+
 end VertexAlgebraModule
 
 /-- A **module** over a vertex operator algebra is a module over the
-    underlying vertex algebra that is compatible with the conformal
-    structure (the Virasoro generators act, and the vacuum of the
-    algebra remains primary of weight zero on the module). -/
+    underlying vertex algebra together with a compatible action of the
+    Virasoro generators given by the modes of the conformal vector.
+-/
 structure VertexOperatorAlgebraModule (R : Type*) (V : Type*) (M : Type*)
     [CommRing R] [AddCommGroup V] [Module R V]
     [AddCommGroup M] [Module R M]
@@ -92,14 +90,23 @@ structure VertexOperatorAlgebraModule (R : Type*) (V : Type*) (M : Type*)
   /-- Compatibility: the Virasoro action is given by the modes of the
       conformal vector. -/
   L_M_eq : ∀ n : ℤ, L_M n = Y_M VOA.ω (n + 1)
-  /-- The vacuum of the algebra is annihilated by `L_M n` for `n ≥ -1`. -/
-  L_M_vac : ∀ n : ℤ, (-1 : ℤ) ≤ n → L_M n = 0 → True
-  -- (The concrete annihilation on vectors of M is left to instances;
-  --  the field above is a placeholder that forces the user to supply
-  --  a proof obligation only when needed.  To keep zero-sorry we make
-  --  the field trivial and rely on the mode compatibility.)
 
--- The last field is awkward.  We replace it by a clean version.
+namespace VertexOperatorAlgebraModule
+
+variable {R V M : Type*}
+  [CommRing R] [AddCommGroup V] [Module R V]
+  [AddCommGroup M] [Module R M]
+variable {VOA : VertexOperatorAlgebra R V}
+  (Mod : VertexOperatorAlgebraModule R V M VOA)
+
+/-- The Virasoro generators on the module are exactly the modes of `ω`. -/
+theorem L_M_mode (n : ℤ) :
+    Mod.L_M n = Mod.Y_M VOA.ω (n + 1) :=
+  Mod.L_M_eq n
+
+end VertexOperatorAlgebraModule
 
 end VOA
 end MonsterBridge
+
+#print axioms MonsterBridge.VOA.VertexAlgebraModule.vac_id
