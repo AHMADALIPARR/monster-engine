@@ -7,6 +7,9 @@
 [![Zero Sorry](https://img.shields.io/badge/proofs-zero%20sorry-brightgreen.svg)](lean/MonsterBridge/VOA/)
 [![License](https://img.shields.io/badge/license-see%20LICENSE-lightgrey.svg)](LICENSE)
 
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/fdbdb7d9-feb6-484f-a387-e239cbe5b838" />
+
+
 **Topics:** `vertex-operator-algebra` `monstrous-moonshine` `monster-group` `lean4` `formal-verification` `mathlib` `voa` `conformal-field-theory` `sporadic-groups` `modular-forms` `genus-zero` `non-congruence-subgroups`
 
 **MONSTER-BRIDGE.** A deterministic, XML-first research engine that connects
