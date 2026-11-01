@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<research version="1">
+  <source id="s1" path="moonshine.txt" sha256="f36dd6bf9b6166106c75577356bd802f79fdf3b28b234a6f864ce5584b60fe76" />
+  <claim id="c1" source="s1" line="1" domain="moonshine" status="candidate">
+    <expression>Monstrous moonshine relates the Monster group and modular functions.</expression>
+    <assumptions>Uninterpreted extracted text; not a proven formula</assumptions>
+  </claim>
+  <claim id="c2" source="s1" line="1" domain="monster" status="candidate">
+    <expression>Monstrous moonshine relates the Monster group and modular functions.</expression>
+    <assumptions>Uninterpreted extracted text; not a proven formula</assumptions>
+  </claim>
+  <claim id="c3" source="s1" line="2" domain="moonshine" status="candidate">
+    <expression>The normalized modular J-invariant begins q^-1 + 196884q + 21493760q^2.</expression>
+    <assumptions>Uninterpreted extracted text; not a proven formula</assumptions>
+  </claim>
+  <claim id="c4" source="s1" line="3" domain="lie" status="candidate">
+    <expression>A Lie algebra satisfies the Jacobi identity.</expression>
+    <assumptions>Uninterpreted extracted text; not a proven formula</assumptions>
+  </claim>
+</research>

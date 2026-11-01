@@ -1,0 +1,3 @@
+Monstrous moonshine relates the Monster group and modular functions.
+The normalized modular J-invariant begins q^-1 + 196884q + 21493760q^2.
+A Lie algebra satisfies the Jacobi identity.
