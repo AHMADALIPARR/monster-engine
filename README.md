@@ -29,8 +29,11 @@ graded verification status through every stage of the pipeline.
   of central charge 24 whose graded dimensions recover the coefficients of J(τ).</sub>
 </p>
 
+<!-- Image will appear here once assets/monster-moonshine-centerfold.jpg is uploaded via GitHub UI -->
 <p align="center">
-  <img src="assets/monster-moonshine-centerfold.jpg" alt="Monster Moonshine — vintage centerfold featuring the Monster, the modular J-function, SL₂(ℤ) action, and the moon" width="820"/>
+  <strong>🖼 Centerfold image ready for upload</strong><br/>
+  <sub>Add <code>assets/monster-moonshine-centerfold.jpg</code> (the vintage Monster + Moon poster)<br/>
+  via <em>Add file → Upload files</em> in the assets/ folder, then the image renders automatically.</sub>
 </p>
 
 ```
